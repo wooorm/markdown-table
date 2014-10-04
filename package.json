@@ -1,0 +1,37 @@
+{
+  "name": "markdown-table",
+  "version": "0.0.1",
+  "description": "Markdown tables, with alignment",
+  "license": "MIT",
+  "keywords": [
+    "text",
+    "markdown",
+    "table",
+    "align",
+    "ascii",
+    "rows",
+    "tabular"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/markdown-table.git"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com>",
+  "devDependencies": {
+    "chalk": "^0.5.1",
+    "eslint": "^0.8.0",
+    "istanbul": "^0.3.0",
+    "jscs": "^1.5.0",
+    "mocha": "^1.20.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/_mocha --reporter spec --check-leaks -u exports spec/markdown-table.spec.js",
+    "test-travis": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks -u exports spec/markdown-table.spec.js",
+    "lint": "npm run lint-api && npm run lint-test && npm run lint-style",
+    "lint-api": "node_modules/.bin/eslint index.js --env node --env browser --rule 'quotes: [2, single]'",
+    "lint-test": "node_modules/.bin/eslint spec/markdown-table.spec.js --env node --env mocha --rule 'quotes: [2, single]'",
+    "lint-style": "node_modules/.bin/jscs index.js spec/markdown-table.spec.js --reporter=inline",
+    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -- spec/markdown-table.spec.js",
+    "make": "npm run lint && npm run coverage"
+  }
+}

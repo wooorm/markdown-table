@@ -1,0 +1,22 @@
+{
+  "name": "markdown-table",
+  "version": "0.0.1",
+  "description": "Markdown tables, with alignment",
+  "license": "MIT",
+  "keywords": [
+    "text",
+    "markdown",
+    "table",
+    "align",
+    "ascii",
+    "rows",
+    "tabular"
+  ],
+  "repository": "wooorm/markdown-table",
+  "scripts": [
+    "index.js"
+  ],
+  "json": [
+    "data/markdown-table.json"
+  ]
+}
