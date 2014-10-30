@@ -50,7 +50,7 @@ describe('table()', function () {
                 ['', '', '']
             ],
             {
-                'align' : ['c', 'c', 'c']
+                'align': ['c', 'c', 'c']
             }
         );
 
@@ -81,7 +81,7 @@ describe('table(align: [...])', function () {
                 ['bar', '45']
             ],
             {
-                'align' : ['l', 'r']
+                'align': ['l', 'r']
             }
         );
 
@@ -105,7 +105,7 @@ describe('table(align: [...])', function () {
                 ['bar', '45', 'lmno']
             ],
             {
-                'align' : ['l', 'c', 'l']
+                'align': ['l', 'c', 'l']
             }
         );
 
@@ -131,7 +131,7 @@ describe('table(align: [...])', function () {
                 ['baz', '123.']
             ],
             {
-                'align' : ['l', '.']
+                'align': ['l', '.']
             }
         );
 
@@ -160,7 +160,7 @@ describe('table(align: [...])', function () {
                 ['123']
             ],
             {
-                'align' : ['.']
+                'align': ['.']
             }
         );
 
@@ -188,7 +188,7 @@ describe('table({delimiter: " - "}) // Note: invalid GFM', function () {
                 ['staging', 'fedcba9876543210']
             ],
             {
-                'delimiter' : ' - '
+                'delimiter': ' - '
             }
         );
 
@@ -211,7 +211,7 @@ describe('table({start: ""})', function () {
                 ['staging', 'fedcba9876543210']
             ],
             {
-                'start' : ''
+                'start': ''
             }
         );
 
@@ -234,7 +234,7 @@ describe('table({end: ""})', function () {
                 ['staging', 'fedcba9876543210']
             ],
             {
-                'end' : ''
+                'end': ''
             }
         );
 
@@ -257,7 +257,7 @@ describe('table({rule: false}) // Note: invalid GFM', function () {
                 ['staging', 'fedcba9876543210']
             ],
             {
-                'rule' : false
+                'rule': false
             }
         );
 
@@ -305,8 +305,8 @@ describe('table({stringLength: fn}) // For terminals, etc.', function () {
                 ]
             ],
             {
-                'align' : ['l', 'c', 'r'],
-                'stringLength' : stringLength
+                'align': ['l', 'c', 'r'],
+                'stringLength': stringLength
             }
         );
 
