@@ -1,4 +1,4 @@
-# markdown-table [![Build Status](https://travis-ci.org/wooorm/markdown-table.svg?branch=master)](https://travis-ci.org/wooorm/markdown-table) [![Coverage Status](https://img.shields.io/coveralls/wooorm/markdown-table.svg)](https://coveralls.io/r/wooorm/markdown-table?branch=master)
+# markdown-table [![Build Status](https://img.shields.io/travis/wooorm/markdown-table.svg?style=flat)](https://travis-ci.org/wooorm/markdown-table) [![Coverage Status](https://img.shields.io/coveralls/wooorm/markdown-table.svg?style=flat)](https://coveralls.io/r/wooorm/markdown-table?branch=master)
 
 Generate fancy [Markdown](https://help.github.com/articles/github-flavored-markdown/#tables) or text tables.
 
