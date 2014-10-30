@@ -15,8 +15,5 @@
   "repository": "wooorm/markdown-table",
   "scripts": [
     "index.js"
-  ],
-  "json": [
-    "data/markdown-table.json"
   ]
 }
