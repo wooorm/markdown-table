@@ -8,7 +8,7 @@ var table,
     chalk,
     assert;
 
-table = require('..');
+table = require('./');
 chalk = require('chalk');
 assert = require('assert');
 
