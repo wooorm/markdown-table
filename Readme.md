@@ -112,7 +112,7 @@ function stringLength(cell) {
 }
 ```
 
-See the [tests for an example](spec/markdown-table.spec.js).
+See the [tests for an example](test.js).
 
 ## Inspiration
 
