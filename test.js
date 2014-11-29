@@ -70,7 +70,7 @@ describe('table()', function () {
     });
 });
 
-describe('table(align: [...])', function () {
+describe('table({align: [...]})', function () {
     it('should align left and right', function () {
         var output;
 
@@ -174,6 +174,29 @@ describe('table(align: [...])', function () {
             '| 12345.      |',
             '|  5555.      |',
             '|   123       |'
+        ].join('\n'));
+    });
+
+    it('should accept a single value', function () {
+        var output;
+
+        output = table([
+                ['Very long', 'Even longer'],
+                ['boop', '33450'],
+                ['foo', '1006'],
+                ['bar', '45']
+            ],
+            {
+                'align': 'c'
+            }
+        );
+
+        assert(output === [
+            '| Very long | Even longer |',
+            '| :-------: | :---------: |',
+            '|    boop   |    33450    |',
+            '|    foo    |     1006    |',
+            '|    bar    |      45     |'
         ].join('\n'));
     });
 });

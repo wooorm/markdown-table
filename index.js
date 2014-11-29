@@ -172,6 +172,10 @@ function markdownTable(table, options) {
         }
     }
 
+    if (typeof alignment === 'string') {
+        alignment = pad(cellCount, alignment).split('');
+    }
+
     /**
      * Make sure only valid alignments are used.
      */
