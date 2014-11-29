@@ -1,7 +1,7 @@
 {
   "name": "markdown-table",
   "version": "0.1.0",
-  "description": "Markdown tables, with alignment",
+  "description": "Markdown/ASCII tables",
   "license": "MIT",
   "keywords": [
     "text",

@@ -1,6 +1,6 @@
 # markdown-table [![Build Status](https://img.shields.io/travis/wooorm/markdown-table.svg?style=flat)](https://travis-ci.org/wooorm/markdown-table) [![Coverage Status](https://img.shields.io/coveralls/wooorm/markdown-table.svg?style=flat)](https://coveralls.io/r/wooorm/markdown-table?branch=master)
 
-Generate fancy [Markdown](https://help.github.com/articles/github-flavored-markdown/#tables) or text tables.
+Generate fancy [Markdown](https://help.github.com/articles/github-flavored-markdown/#tables)/ASCII tables.
 
 ## Installation
 
