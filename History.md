@@ -1,5 +1,5 @@
 
-n.n.n / 2014-11-29
+0.2.0 / 2014-11-29
 ==================
 
  * Add option to specify a single alignment
