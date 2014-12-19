@@ -1,5 +1,5 @@
 
-n.n.n / 2014-12-19
+0.3.0 / 2014-12-19
 ==================
 
   * Add support for multi-character values in alignment
