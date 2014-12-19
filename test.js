@@ -28,7 +28,7 @@ describe('table()', function () {
 
         assert(output === [
             '| Branch  | Commit           |',
-            '| :------ | :--------------- |',
+            '| ------- | ---------------- |',
             '| master  | 0123456789abcdef |',
             '| staging | fedcba9876543210 |'
         ].join('\n'));
@@ -87,7 +87,7 @@ describe('table({align: [...]})', function () {
 
         assert(output === [
             '| Beep |   No. |',
-            '| :--- | ----: |',
+            '| ---- | ----: |',
             '| boop | 33450 |',
             '| foo  |  1006 |',
             '| bar  |    45 |'
@@ -111,7 +111,7 @@ describe('table({align: [...]})', function () {
 
         assert(output === [
             '| Beep |   No.   | Boop   |',
-            '| :--- | :-----: | :----- |',
+            '| ---- | :-----: | ------ |',
             '| beep |   1024  | xyz    |',
             '| boop | 3388450 | tuv    |',
             '| foo  |  10106  | qrstuv |',
@@ -137,7 +137,7 @@ describe('table({align: [...]})', function () {
 
         assert(output === [
             '| Beep |   No.    |',
-            '| :--- | :------: |',
+            '| ---- | :------: |',
             '| beep | 1024     |',
             '| boop |  334.212 |',
             '| foo  | 1006     |',
@@ -217,7 +217,7 @@ describe('table({delimiter: " - "}) // Note: invalid GFM', function () {
 
         assert(output === [
             '| Branch  - Commit           |',
-            '| :------ - :--------------- |',
+            '| ------- - ---------------- |',
             '| master  - 0123456789abcdef |',
             '| staging - fedcba9876543210 |'
         ].join('\n'));
@@ -240,7 +240,7 @@ describe('table({start: ""})', function () {
 
         assert(output === [
             'Branch  | Commit           |',
-            ':------ | :--------------- |',
+            '------- | ---------------- |',
             'master  | 0123456789abcdef |',
             'staging | fedcba9876543210 |'
         ].join('\n'));
@@ -263,7 +263,7 @@ describe('table({end: ""})', function () {
 
         assert(output === [
             '| Branch  | Commit          ',
-            '| :------ | :---------------',
+            '| ------- | ----------------',
             '| master  | 0123456789abcdef',
             '| staging | fedcba9876543210'
         ].join('\n'));
@@ -342,7 +342,7 @@ describe('table({stringLength: fn}) // For terminals, etc.', function () {
 
         assert(chalk.stripColor(output) === [
             '| A       |    B   |      C |',
-            '| :------ | :----: | -----: |',
+            '| ------- | :----: | -----: |',
             '| Red     |  Green |   Blue |',
             '| Bold    |        | Italic |',
             '| Inverse | Strike | Hidden |',

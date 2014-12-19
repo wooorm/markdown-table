@@ -97,6 +97,7 @@ function markdownTable(table, options) {
         start,
         end,
         alignment,
+        align,
         rule,
         calculateStringLength,
         sizes,
@@ -283,9 +284,15 @@ function markdownTable(table, options) {
         rule = [];
 
         while (++index < cellCount) {
-            value = alignment[index] !== RIGHT ? COLON : DASH;
+            align = alignment[index];
+
+            /*
+             * When `align` is left, don't add colons.
+             */
+
+            value = align !== LEFT && align !== RIGHT ? COLON : DASH;
             value += pad(sizes[index] - 2, DASH);
-            value += alignment[index] !== LEFT ? COLON : DASH;
+            value += align !== LEFT ? COLON : DASH;
 
             rule[index] = value;
         }
