@@ -1,4 +1,14 @@
 
+n.n.n / 2014-12-19
+==================
+
+  * Add support for multi-character values in alignment
+  * Remove alignment when left-aligning
+  * Refactor to adhere to strict jsdoc style
+  * Add jscs-jsdoc configuration to `.jscs.json`
+  * Add jscs-jsdoc as a dev-dependency
+  * Refactor npm scripts for changes in npm
+
 0.2.0 / 2014-11-29
 ==================
 
