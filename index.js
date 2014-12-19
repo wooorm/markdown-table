@@ -1,6 +1,6 @@
 'use strict';
 
-/**
+/*
  * Useful expressions.
  */
 
@@ -11,7 +11,7 @@ EXPRESSION_DOT = /\./;
 
 EXPRESSION_LAST_DOT = /\.[^.]*$/;
 
-/**
+/*
  * Allowed alignment values.
  */
 
@@ -28,7 +28,7 @@ DOT = '.';
 
 ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT];
 
-/**
+/*
  * Characters.
  */
 
@@ -50,7 +50,6 @@ NEW_LINE = '\n';
  * @param {string} value
  * @return {number}
  */
-
 function calculateStringLengthNoop(value) {
     return String(value).length;
 }
@@ -62,7 +61,6 @@ function calculateStringLengthNoop(value) {
  * @param {string} [character=' ']
  * @return {string}
  */
-
 function pad(length, character) {
     return Array(length + 1).join(character || SPACE);
 }
@@ -73,7 +71,6 @@ function pad(length, character) {
  * @param {string} value
  * @return {number}
  */
-
 function dotindex(value) {
     var match;
 
@@ -95,7 +92,6 @@ function dotindex(value) {
  * @param {function(string)?} options.stringLength
  * @return {string} Pretty table
  */
-
 function markdownTable(table, options) {
     var delimiter,
         start,
@@ -176,7 +172,7 @@ function markdownTable(table, options) {
         alignment = pad(cellCount, alignment).split('');
     }
 
-    /**
+    /*
      * Make sure only valid alignments are used.
      */
 
@@ -300,7 +296,7 @@ function markdownTable(table, options) {
     return start + rows.join(end + NEW_LINE + start) + end;
 }
 
-/**
+/*
  * Expose `markdownTable`.
  */
 

@@ -1,6 +1,6 @@
 'use strict';
 
-/**
+/*
  * Dependencies.
  */
 
@@ -12,7 +12,7 @@ table = require('./');
 chalk = require('chalk');
 assert = require('assert');
 
-/**
+/*
  * Tests.
  */
 
@@ -296,6 +296,13 @@ describe('table({stringLength: fn}) // For terminals, etc.', function () {
     it('should use `fn` to detect cell lengths', function () {
         var output;
 
+        /**
+         * Get the length of a string, minus ANSI color
+         * characters.
+         *
+         * @param {string} value
+         * @return {string}
+         */
         function stringLength(value) {
             return chalk.stripColor(value).length;
         }
