@@ -93,7 +93,7 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 
 The following options are available:
 
-- `options.align`  — String or array of strings, the strings being either `"l"` (left), `"r"` (right), `c` (center), or `.` (dot). Other values are treated as `"l"`;
+- `options.align`  — String or array of strings, the strings being either `"l"` (left), `"r"` (right), `c` (center), or `.` (dot). Other values are treated as `"l"`. _Only the lowercased first character is used, so `Right` is fine_;
 - `options.delimiter` — Value to insert between cells. Carefull, non-pipe values will break GitHub Flavored Markdown;
 - `options.start` — Value to insert at the beginning of every row.
 - `options.end` — Value to insert at the end of every row.

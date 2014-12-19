@@ -180,9 +180,17 @@ function markdownTable(table, options) {
     index = -1;
 
     while (++index < cellCount) {
-        if (ALLIGNMENT.indexOf(alignment[index]) === -1) {
-            alignment[index] = LEFT;
+        align = alignment[index];
+
+        if (typeof align === 'string') {
+            align = align.charAt(0).toLowerCase();
         }
+
+        if (ALLIGNMENT.indexOf(align) === -1) {
+            align = LEFT;
+        }
+
+        alignment[index] = align;
     }
 
     rowIndex = -1;
