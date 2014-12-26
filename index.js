@@ -137,7 +137,11 @@ function markdownTable(table, options) {
         end = SPACE + PIPE;
     }
 
-    alignment = options.align || [];
+    if (options.align) {
+        alignment = options.align.concat();
+    } else {
+        alignment = [];
+    }
 
     calculateStringLength = options.stringLength || calculateStringLengthNoop;
 
