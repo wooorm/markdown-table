@@ -1,4 +1,10 @@
 
+n.n.n / 2014-12-26
+==================
+
+  * Merge branch 'bug/dont-modify-align'
+  * Fix mutating `options.align`
+
 0.3.0 / 2014-12-19
 ==================
 
