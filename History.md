@@ -1,5 +1,5 @@
 
-n.n.n / 2014-12-26
+0.3.1 / 2014-12-26
 ==================
 
   * Merge branch 'bug/dont-modify-align'
