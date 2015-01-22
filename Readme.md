@@ -5,23 +5,26 @@ Generate fancy [Markdown](https://help.github.com/articles/github-flavored-markd
 ## Installation
 
 npm:
-```sh
+
+```bash
 $ npm install markdown-table
 ```
 
 Component:
-```sh
+
+```bash
 $ component install wooorm/markdown-table
 ```
 
 Bower:
-```sh
+
+```bash
 $ bower install markdown-table
 ```
 
 ## Usage
 
-```js
+```javascript
 var table = require('markdown-table');
 
 /**
@@ -104,7 +107,7 @@ The following options are available:
 
 ANSI-sequences mess up table creation. To fix this, you have to pass in a `stringLength` option to detect the “visible” length of a cell.
 
-```js
+```javascript
 var chalk = require('chalk');
 
 function stringLength(cell) {
