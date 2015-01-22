@@ -121,7 +121,7 @@ function stringLength(cell) {
 }
 ```
 
-See the [tests for an example](test.js).
+See the [tests for an example](test.js#L368-L375).
 
 ## Inspiration
 
