@@ -129,4 +129,4 @@ The original idea and basic implementation was inspired by James Halliday's [tex
 
 ## License
 
-MIT © [Titus Wormer](http://wooorm.com)
+[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
