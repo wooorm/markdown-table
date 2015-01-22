@@ -22,6 +22,12 @@ $ component install wooorm/markdown-table
 $ bower install markdown-table
 ```
 
+[Duo](http://duojs.org/#getting-started):
+
+```javascript
+var table = require('wooorm/markdown-table');
+```
+
 ## Usage
 
 ```javascript
