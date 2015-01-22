@@ -1,4 +1,18 @@
 
+n.n.n / 2015-01-22
+==================
+
+  * Update test reference to include line numbers in `Readme.md`
+  * Update copyright notice in `LICENSE` to include 2015
+  * Add link to whole license in `Readme.md`
+  * Add Duo as an instalation method in `Readme.md`
+  * Add links to installation methods in `Readme.md`
+  * Refactor fences code blocks in `Readme.md`
+  * Update usage example in `Readme.md` for changes
+  * Update npm script targets
+  * Update jscs-jsdoc
+  * Update eslint
+
 0.3.1 / 2014-12-26
 ==================
 
