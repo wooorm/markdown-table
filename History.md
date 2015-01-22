@@ -1,5 +1,5 @@
 
-n.n.n / 2015-01-22
+0.3.2 / 2015-01-22
 ==================
 
   * Update test reference to include line numbers in `Readme.md`
