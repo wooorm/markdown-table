@@ -4,13 +4,9 @@
  * Dependencies.
  */
 
-var table,
-    chalk,
-    assert;
-
-table = require('./');
-chalk = require('chalk');
-assert = require('assert');
+var table = require('./');
+var chalk = require('chalk');
+var assert = require('assert');
 
 /*
  * Tests.
@@ -18,9 +14,7 @@ assert = require('assert');
 
 describe('table()', function () {
     it('should create a table', function () {
-        var output;
-
-        output = table([
+        var output = table([
             ['Branch', 'Commit'],
             ['master', '0123456789abcdef'],
             ['staging', 'fedcba9876543210']
@@ -35,9 +29,7 @@ describe('table()', function () {
     });
 
     it('should work correctly when cells are missing', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['A', 'B', 'C'],
                 ['a', 'b', 'c'],
                 ['a', 'b'],
@@ -72,9 +64,7 @@ describe('table()', function () {
 
 describe('table({align: [...]})', function () {
     it('should align left and right', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Beep', 'No.'],
                 ['boop', '33450'],
                 ['foo', '1006'],
@@ -95,9 +85,7 @@ describe('table({align: [...]})', function () {
     });
 
     it('should align center', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Beep', 'No.', 'Boop'],
                 ['beep', '1024', 'xyz'],
                 ['boop', '3388450', 'tuv'],
@@ -120,9 +108,7 @@ describe('table({align: [...]})', function () {
     });
 
     it('should align dots', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Beep', 'No.'],
                 ['beep', '1024'],
                 ['boop', '334.212'],
@@ -147,9 +133,7 @@ describe('table({align: [...]})', function () {
     });
 
     it('should align multiple dots in a cell', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['No.'],
                 ['0.1.2'],
                 ['11.22.33'],
@@ -178,9 +162,7 @@ describe('table({align: [...]})', function () {
     });
 
     it('should accept a single value', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Very long', 'Even longer'],
                 ['boop', '33450'],
                 ['foo', '1006'],
@@ -201,9 +183,7 @@ describe('table({align: [...]})', function () {
     });
 
     it('should accept multi-character values', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Beep', 'No.', 'Boop'],
                 ['beep', '1024', 'xyz'],
                 ['boop', '3388450', 'tuv'],
@@ -228,9 +208,7 @@ describe('table({align: [...]})', function () {
 
 describe('table({delimiter: " - "}) // Note: invalid GFM', function () {
     it('should create a table delimited by `delimiter`', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Branch', 'Commit'],
                 ['master', '0123456789abcdef'],
                 ['staging', 'fedcba9876543210']
@@ -251,9 +229,7 @@ describe('table({delimiter: " - "}) // Note: invalid GFM', function () {
 
 describe('table({start: ""})', function () {
     it('should create a table without starting border', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Branch', 'Commit'],
                 ['master', '0123456789abcdef'],
                 ['staging', 'fedcba9876543210']
@@ -274,9 +250,7 @@ describe('table({start: ""})', function () {
 
 describe('table({end: ""})', function () {
     it('should create a table without ending border', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Branch', 'Commit'],
                 ['master', '0123456789abcdef'],
                 ['staging', 'fedcba9876543210']
@@ -297,9 +271,7 @@ describe('table({end: ""})', function () {
 
 describe('table({rule: false}) // Note: invalid GFM', function () {
     it('should create a table without rule', function () {
-        var output;
-
-        output = table([
+        var output = table([
                 ['Branch', 'Commit'],
                 ['master', '0123456789abcdef'],
                 ['staging', 'fedcba9876543210']

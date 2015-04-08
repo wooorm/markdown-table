@@ -15,7 +15,7 @@ var LEFT = 'l';
 var RIGHT = 'r';
 var CENTER = 'c';
 var DOT = '.';
-var NULL = ''
+var NULL = '';
 
 var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL];
 
