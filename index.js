@@ -4,45 +4,29 @@
  * Useful expressions.
  */
 
-var EXPRESSION_DOT,
-    EXPRESSION_LAST_DOT;
-
-EXPRESSION_DOT = /\./;
-
-EXPRESSION_LAST_DOT = /\.[^.]*$/;
+var EXPRESSION_DOT = /\./;
+var EXPRESSION_LAST_DOT = /\.[^.]*$/;
 
 /*
  * Allowed alignment values.
  */
 
-var LEFT,
-    RIGHT,
-    CENTER,
-    DOT,
-    ALLIGNMENT;
+var LEFT = 'l';
+var RIGHT = 'r';
+var CENTER = 'c';
+var DOT = '.';
 
-LEFT = 'l';
-RIGHT = 'r';
-CENTER = 'c';
-DOT = '.';
-
-ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT];
+var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT];
 
 /*
  * Characters.
  */
 
-var COLON,
-    DASH,
-    PIPE,
-    SPACE,
-    NEW_LINE;
-
-COLON = ':';
-DASH = '-';
-PIPE = '|';
-SPACE = ' ';
-NEW_LINE = '\n';
+var COLON = ':';
+var DASH = '-';
+var PIPE = '|';
+var SPACE = ' ';
+var NEW_LINE = '\n';
 
 /**
  * Get the length of `value`.
@@ -50,7 +34,7 @@ NEW_LINE = '\n';
  * @param {string} value
  * @return {number}
  */
-function calculateStringLengthNoop(value) {
+function lengthNoop(value) {
     return String(value).length;
 }
 
@@ -72,9 +56,7 @@ function pad(length, character) {
  * @return {number}
  */
 function dotindex(value) {
-    var match;
-
-    match = EXPRESSION_LAST_DOT.exec(value);
+    var match = EXPRESSION_LAST_DOT.exec(value);
 
     return match ? match.index + 1 : value.length;
 }
@@ -93,63 +75,46 @@ function dotindex(value) {
  * @return {string} Pretty table
  */
 function markdownTable(table, options) {
-    var delimiter,
-        start,
-        end,
-        alignment,
-        align,
-        rule,
-        calculateStringLength,
-        sizes,
-        rows,
-        rowIndex,
-        rowLength,
-        row,
-        cells,
-        cellCount,
-        index,
-        position,
-        size,
-        value,
-        spacing,
-        before,
-        after;
+    var settings = options || {};
+    var delimiter = settings.delimiter;
+    var start = settings.start;
+    var end = settings.end;
+    var alignment = settings.align;
+    var calculateStringLength = settings.stringLength || lengthNoop;
+    var cellCount = 0;
+    var rowIndex = -1;
+    var rowLength = table.length;
+    var sizes = [];
+    var align;
+    var rule;
+    var rows;
+    var row;
+    var cells;
+    var index;
+    var position;
+    var size;
+    var value;
+    var spacing;
+    var before;
+    var after;
 
-    if (!options) {
-        options = {};
+    if (alignment && alignment.concat) {
+        alignment = alignment.concat();
+    } else if (!alignment) {
+        alignment = [];
     }
-
-    delimiter = options.delimiter;
 
     if (delimiter === null || delimiter === undefined) {
         delimiter = SPACE + PIPE + SPACE;
     }
 
-    start = options.start;
-
     if (start === null || start === undefined) {
         start = PIPE + SPACE;
     }
 
-    end = options.end;
-
     if (end === null || end === undefined) {
         end = SPACE + PIPE;
     }
-
-    if (options.align) {
-        alignment = options.align.concat();
-    } else {
-        alignment = [];
-    }
-
-    calculateStringLength = options.stringLength || calculateStringLengthNoop;
-
-    rowIndex = -1;
-    rowLength = table.length;
-    cellCount = 0;
-
-    sizes = [];
 
     while (++rowIndex < rowLength) {
         row = table[rowIndex];
@@ -291,7 +256,7 @@ function markdownTable(table, options) {
         rows[rowIndex] = cells.join(delimiter);
     }
 
-    if (options.rule !== false) {
+    if (settings.rule !== false) {
         index = -1;
         rule = [];
 
