@@ -3,11 +3,14 @@ script: npm run-script test-travis
 node_js:
 - '0.10'
 - '0.11'
+- '0.12'
+- iojs
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+sudo: false
 deploy:
   provider: npm
   email: tituswormer@gmail.com
   api_key:
-    secure: dEjGO4az2HGlOFMhkRW74GmJhBMuidNu8etZOfeIrpdZvEQsyax3UxKo2ui/ffCkN/+MQVaZrAyLvjunUm8EOuVVbfd6u7GaFGrolOnuDQmCJIWTch/nmzIbMy3q0juTWTXEWsqURa75fKRVIHS5XqLL42CSkqs18ZQ5nMR1aJc=
+    secure: nOpgR3AZ52R9ATV4DBAgFkHMsR+EvJ+0MW/VnUqW0rLbACPNv/fYqSYeiEEfZ70BskHFxMTvyvUmveHpNN4FW18+sOB+87VrVuDmCeEuq/4cvlp3cLZ202Ydn7P7pwCFCRHcK8ugk3nhcCRtDO8Hreoof2qc1awUGk18gXBjJrU=
   on:
     repo: wooorm/markdown-table
