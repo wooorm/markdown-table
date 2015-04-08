@@ -64,7 +64,7 @@ table([
 });
 /*
  * | Beep |   No.   |   Boop |
- * | ---- | :-----: | -----: |
+ * | :--- | :-----: | -----: |
  * | beep |   1024  |    xyz |
  * | boop | 3388450 |    tuv |
  * | foo  |  10106  | qrstuv |
@@ -102,7 +102,7 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 
 The following options are available:
 
-- `options.align`  — String or array of strings, the strings being either `"l"` (left), `"r"` (right), `c` (center), or `.` (dot). Other values are treated as `"l"`. _Only the lowercased first character is used, so `Right` is fine_;
+- `options.align`  — String or array of strings, the strings being either `"l"` (left), `"r"` (right), `c` (center), or `.` (dot). Other values are treated as `""`, which doesn’t place the colon but does left align. _Only the lowercased first character is used, so `Right` is fine_;
 - `options.delimiter` — Value to insert between cells. Carefull, non-pipe values will break GitHub Flavored Markdown;
 - `options.start` — Value to insert at the beginning of every row.
 - `options.end` — Value to insert at the end of every row.
@@ -111,7 +111,7 @@ The following options are available:
 
 ### options.stringLength(cell)
 
-ANSI-sequences mess up table creation. To fix this, you have to pass in a `stringLength` option to detect the “visible” length of a cell.
+ANSI-sequences mess up tables on terminals. To fix this, you have to pass in a `stringLength` option to detect the “visible” length of a cell.
 
 ```javascript
 var chalk = require('chalk');

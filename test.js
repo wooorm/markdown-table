@@ -87,7 +87,7 @@ describe('table({align: [...]})', function () {
 
         assert(output === [
             '| Beep |   No. |',
-            '| ---- | ----: |',
+            '| :--- | ----: |',
             '| boop | 33450 |',
             '| foo  |  1006 |',
             '| bar  |    45 |'
@@ -111,7 +111,7 @@ describe('table({align: [...]})', function () {
 
         assert(output === [
             '| Beep |   No.   | Boop   |',
-            '| ---- | :-----: | ------ |',
+            '| :--- | :-----: | :----- |',
             '| beep |   1024  | xyz    |',
             '| boop | 3388450 | tuv    |',
             '| foo  |  10106  | qrstuv |',
@@ -131,7 +131,7 @@ describe('table({align: [...]})', function () {
                 ['baz', '123.']
             ],
             {
-                'align': ['l', '.']
+                'align': ['', '.']
             }
         );
 
@@ -217,7 +217,7 @@ describe('table({align: [...]})', function () {
 
         assert(output === [
             '| Beep |   No.   |   Boop |',
-            '| ---- | :-----: | -----: |',
+            '| :--- | :-----: | -----: |',
             '| beep |   1024  |    xyz |',
             '| boop | 3388450 |    tuv |',
             '| foo  |  10106  | qrstuv |',
@@ -360,7 +360,7 @@ describe('table({stringLength: fn}) // For terminals, etc.', function () {
                 ]
             ],
             {
-                'align': ['l', 'c', 'r'],
+                'align': ['', 'c', 'r'],
                 'stringLength': stringLength
             }
         );

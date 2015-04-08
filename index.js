@@ -15,8 +15,9 @@ var LEFT = 'l';
 var RIGHT = 'r';
 var CENTER = 'c';
 var DOT = '.';
+var NULL = ''
 
-var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT];
+var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL];
 
 /*
  * Characters.
@@ -156,7 +157,7 @@ function markdownTable(table, options) {
         }
 
         if (ALLIGNMENT.indexOf(align) === -1) {
-            align = LEFT;
+            align = NULL;
         }
 
         alignment[index] = align;
@@ -267,9 +268,9 @@ function markdownTable(table, options) {
              * When `align` is left, don't add colons.
              */
 
-            value = align !== LEFT && align !== RIGHT ? COLON : DASH;
+            value = align === RIGHT || align === NULL ? DASH : COLON;
             value += pad(sizes[index] - 2, DASH);
-            value += align !== LEFT ? COLON : DASH;
+            value += align !== LEFT && align !== NULL ? COLON : DASH;
 
             rule[index] = value;
         }
