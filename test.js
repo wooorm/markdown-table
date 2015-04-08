@@ -42,7 +42,7 @@ describe('table()', function () {
                 ['', '', '']
             ],
             {
-                'align': ['c', 'c', 'c']
+                'align': 'c'
             }
         );
 

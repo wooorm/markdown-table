@@ -99,11 +99,7 @@ function markdownTable(table, options) {
     var before;
     var after;
 
-    if (alignment && alignment.concat) {
-        alignment = alignment.concat();
-    } else if (!alignment) {
-        alignment = [];
-    }
+    alignment = alignment ? alignment.concat() : [];
 
     if (delimiter === null || delimiter === undefined) {
         delimiter = SPACE + PIPE + SPACE;
