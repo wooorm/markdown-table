@@ -1,4 +1,15 @@
 
+0.4.0 / 2015-04-08
+==================
+
+*   Refactor to simplify branch ([23f8bea](https://github.com/wooorm/markdown-table/commit/23f8bea))
+*   Update `.travis.yml` ([e68017e](https://github.com/wooorm/markdown-table/commit/e68017e))
+*   Refactor style ([d6d7f37](https://github.com/wooorm/markdown-table/commit/d6d7f37))
+*   Remove left-alignment colon for neutral columns ([6061c21](https://github.com/wooorm/markdown-table/commit/6061c21))
+*   Refactor style ([7022ed1](https://github.com/wooorm/markdown-table/commit/7022ed1))
+*   Update chalk ([7beb551](https://github.com/wooorm/markdown-table/commit/7beb551))
+*   Update eslint ([14d61ab](https://github.com/wooorm/markdown-table/commit/14d61ab))
+
 0.3.2 / 2015-01-22
 ==================
 
