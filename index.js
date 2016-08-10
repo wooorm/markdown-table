@@ -1,16 +1,21 @@
-'use strict';
-
-/*
- * Useful expressions.
+/**
+ * @author Titus Wormer
+ * @copyright 2014 Titus Wormer
+ * @license MIT
+ * @module markdown-table
+ * @fileoverview Count syllables in English words.
  */
 
+'use strict';
+
+/* Expose `markdownTable`. */
+module.exports = markdownTable;
+
+/* Expressions. */
 var EXPRESSION_DOT = /\./;
 var EXPRESSION_LAST_DOT = /\.[^.]*$/;
 
-/*
- * Allowed alignment values.
- */
-
+/* Allowed alignment values. */
 var LEFT = 'l';
 var RIGHT = 'r';
 var CENTER = 'c';
@@ -19,48 +24,12 @@ var NULL = '';
 
 var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL];
 
-/*
- * Characters.
- */
-
+/* Characters. */
 var COLON = ':';
 var DASH = '-';
 var PIPE = '|';
 var SPACE = ' ';
 var NEW_LINE = '\n';
-
-/**
- * Get the length of `value`.
- *
- * @param {string} value
- * @return {number}
- */
-function lengthNoop(value) {
-    return String(value).length;
-}
-
-/**
- * Get a string consisting of `length` `character`s.
- *
- * @param {number} length
- * @param {string} [character=' ']
- * @return {string}
- */
-function pad(length, character) {
-    return Array(length + 1).join(character || SPACE);
-}
-
-/**
- * Get the position of the last dot in `value`.
- *
- * @param {string} value
- * @return {number}
- */
-function dotindex(value) {
-    var match = EXPRESSION_LAST_DOT.exec(value);
-
-    return match ? match.index + 1 : value.length;
-}
 
 /**
  * Create a table from a matrix of strings.
@@ -76,209 +45,230 @@ function dotindex(value) {
  * @return {string} Pretty table
  */
 function markdownTable(table, options) {
-    var settings = options || {};
-    var delimiter = settings.delimiter;
-    var start = settings.start;
-    var end = settings.end;
-    var alignment = settings.align;
-    var calculateStringLength = settings.stringLength || lengthNoop;
-    var cellCount = 0;
-    var rowIndex = -1;
-    var rowLength = table.length;
-    var sizes = [];
-    var align;
-    var rule;
-    var rows;
-    var row;
-    var cells;
-    var index;
-    var position;
-    var size;
-    var value;
-    var spacing;
-    var before;
-    var after;
+  var settings = options || {};
+  var delimiter = settings.delimiter;
+  var start = settings.start;
+  var end = settings.end;
+  var alignment = settings.align;
+  var calculateStringLength = settings.stringLength || lengthNoop;
+  var cellCount = 0;
+  var rowIndex = -1;
+  var rowLength = table.length;
+  var sizes = [];
+  var align;
+  var rule;
+  var rows;
+  var row;
+  var cells;
+  var index;
+  var position;
+  var size;
+  var value;
+  var spacing;
+  var before;
+  var after;
 
-    alignment = alignment ? alignment.concat() : [];
+  alignment = alignment ? alignment.concat() : [];
 
-    if (delimiter === null || delimiter === undefined) {
-        delimiter = SPACE + PIPE + SPACE;
+  if (delimiter === null || delimiter === undefined) {
+    delimiter = SPACE + PIPE + SPACE;
+  }
+
+  if (start === null || start === undefined) {
+    start = PIPE + SPACE;
+  }
+
+  if (end === null || end === undefined) {
+    end = SPACE + PIPE;
+  }
+
+  while (++rowIndex < rowLength) {
+    row = table[rowIndex];
+
+    index = -1;
+
+    if (row.length > cellCount) {
+      cellCount = row.length;
     }
 
-    if (start === null || start === undefined) {
-        start = PIPE + SPACE;
+    while (++index < cellCount) {
+      position = row[index] ? dotindex(row[index]) : null;
+
+      if (!sizes[index]) {
+        sizes[index] = 3;
+      }
+
+      if (position > sizes[index]) {
+        sizes[index] = position;
+      }
+    }
+  }
+
+  if (typeof alignment === 'string') {
+    alignment = pad(cellCount, alignment).split('');
+  }
+
+  /* Make sure only valid alignments are used. */
+  index = -1;
+
+  while (++index < cellCount) {
+    align = alignment[index];
+
+    if (typeof align === 'string') {
+      align = align.charAt(0).toLowerCase();
     }
 
-    if (end === null || end === undefined) {
-        end = SPACE + PIPE;
+    if (ALLIGNMENT.indexOf(align) === -1) {
+      align = NULL;
     }
 
-    while (++rowIndex < rowLength) {
-        row = table[rowIndex];
+    alignment[index] = align;
+  }
 
-        index = -1;
+  rowIndex = -1;
+  rows = [];
 
-        if (row.length > cellCount) {
-            cellCount = row.length;
-        }
+  while (++rowIndex < rowLength) {
+    row = table[rowIndex];
 
-        while (++index < cellCount) {
-            position = row[index] ? dotindex(row[index]) : null;
+    index = -1;
+    cells = [];
 
-            if (!sizes[index]) {
-                sizes[index] = 3;
-            }
+    while (++index < cellCount) {
+      value = row[index];
 
-            if (position > sizes[index]) {
-                sizes[index] = position;
-            }
-        }
+      if (value === null || value === undefined) {
+        value = '';
+      } else {
+        value = String(value);
+      }
+
+      if (alignment[index] === DOT) {
+        position = dotindex(value);
+
+        size = sizes[index] +
+          (EXPRESSION_DOT.test(value) ? 0 : 1) -
+          (calculateStringLength(value) - position);
+
+        cells[index] = value + pad(size - 1);
+      } else {
+        cells[index] = value;
+      }
     }
 
-    if (typeof alignment === 'string') {
-        alignment = pad(cellCount, alignment).split('');
-    }
+    rows[rowIndex] = cells;
+  }
 
-    /*
-     * Make sure only valid alignments are used.
-     */
+  sizes = [];
+  rowIndex = -1;
+
+  while (++rowIndex < rowLength) {
+    cells = rows[rowIndex];
 
     index = -1;
 
     while (++index < cellCount) {
-        align = alignment[index];
+      value = cells[index];
 
-        if (typeof align === 'string') {
-            align = align.charAt(0).toLowerCase();
+      if (!sizes[index]) {
+        sizes[index] = 3;
+      }
+
+      size = calculateStringLength(value);
+
+      if (size > sizes[index]) {
+        sizes[index] = size;
+      }
+    }
+  }
+
+  rowIndex = -1;
+
+  while (++rowIndex < rowLength) {
+    cells = rows[rowIndex];
+
+    index = -1;
+
+    while (++index < cellCount) {
+      value = cells[index];
+
+      position = sizes[index] - (calculateStringLength(value) || 0);
+      spacing = pad(position);
+
+      if (alignment[index] === RIGHT || alignment[index] === DOT) {
+        value = spacing + value;
+      } else if (alignment[index] === CENTER) {
+        position /= 2;
+
+        if (position % 1 === 0) {
+          before = position;
+          after = position;
+        } else {
+          before = position + 0.5;
+          after = position - 0.5;
         }
 
-        if (ALLIGNMENT.indexOf(align) === -1) {
-            align = NULL;
-        }
+        value = pad(before) + value + pad(after);
+      } else {
+        value += spacing;
+      }
 
-        alignment[index] = align;
+      cells[index] = value;
     }
 
-    rowIndex = -1;
-    rows = [];
+    rows[rowIndex] = cells.join(delimiter);
+  }
 
-    while (++rowIndex < rowLength) {
-        row = table[rowIndex];
+  if (settings.rule !== false) {
+    index = -1;
+    rule = [];
 
-        index = -1;
-        cells = [];
+    while (++index < cellCount) {
+      align = alignment[index];
 
-        while (++index < cellCount) {
-            value = row[index];
+      /* When `align` is left, don't add colons. */
+      value = align === RIGHT || align === NULL ? DASH : COLON;
+      value += pad(sizes[index] - 2, DASH);
+      value += align !== LEFT && align !== NULL ? COLON : DASH;
 
-            if (value === null || value === undefined) {
-                value = '';
-            } else {
-                value = String(value);
-            }
-
-            if (alignment[index] !== DOT) {
-                cells[index] = value;
-            } else {
-                position = dotindex(value);
-
-                size = sizes[index] +
-                    (EXPRESSION_DOT.test(value) ? 0 : 1) -
-                    (calculateStringLength(value) - position);
-
-                cells[index] = value + pad(size - 1);
-            }
-        }
-
-        rows[rowIndex] = cells;
+      rule[index] = value;
     }
 
-    sizes = [];
-    rowIndex = -1;
+    rows.splice(1, 0, rule.join(delimiter));
+  }
 
-    while (++rowIndex < rowLength) {
-        cells = rows[rowIndex];
-
-        index = -1;
-
-        while (++index < cellCount) {
-            value = cells[index];
-
-            if (!sizes[index]) {
-                sizes[index] = 3;
-            }
-
-            size = calculateStringLength(value);
-
-            if (size > sizes[index]) {
-                sizes[index] = size;
-            }
-        }
-    }
-
-    rowIndex = -1;
-
-    while (++rowIndex < rowLength) {
-        cells = rows[rowIndex];
-
-        index = -1;
-
-        while (++index < cellCount) {
-            value = cells[index];
-
-            position = sizes[index] - (calculateStringLength(value) || 0);
-            spacing = pad(position);
-
-            if (alignment[index] === RIGHT || alignment[index] === DOT) {
-                value = spacing + value;
-            } else if (alignment[index] !== CENTER) {
-                value = value + spacing;
-            } else {
-                position = position / 2;
-
-                if (position % 1 === 0) {
-                    before = position;
-                    after = position;
-                } else {
-                    before = position + 0.5;
-                    after = position - 0.5;
-                }
-
-                value = pad(before) + value + pad(after);
-            }
-
-            cells[index] = value;
-        }
-
-        rows[rowIndex] = cells.join(delimiter);
-    }
-
-    if (settings.rule !== false) {
-        index = -1;
-        rule = [];
-
-        while (++index < cellCount) {
-            align = alignment[index];
-
-            /*
-             * When `align` is left, don't add colons.
-             */
-
-            value = align === RIGHT || align === NULL ? DASH : COLON;
-            value += pad(sizes[index] - 2, DASH);
-            value += align !== LEFT && align !== NULL ? COLON : DASH;
-
-            rule[index] = value;
-        }
-
-        rows.splice(1, 0, rule.join(delimiter));
-    }
-
-    return start + rows.join(end + NEW_LINE + start) + end;
+  return start + rows.join(end + NEW_LINE + start) + end;
 }
 
-/*
- * Expose `markdownTable`.
+/**
+ * Get the length of `value`.
+ *
+ * @param {string} value
+ * @return {number}
  */
+function lengthNoop(value) {
+  return String(value).length;
+}
 
-module.exports = markdownTable;
+/**
+ * Get a string consisting of `length` `character`s.
+ *
+ * @param {number} length
+ * @param {string} [character=' ']
+ * @return {string}
+ */
+function pad(length, character) {
+  return Array(length + 1).join(character || SPACE);
+}
+
+/**
+ * Get the position of the last dot in `value`.
+ *
+ * @param {string} value
+ * @return {number}
+ */
+function dotindex(value) {
+  var match = EXPRESSION_LAST_DOT.exec(value);
+
+  return match ? match.index + 1 : value.length;
+}

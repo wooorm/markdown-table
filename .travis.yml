@@ -1,16 +1,27 @@
 language: node_js
-script: npm run-script test-travis
 node_js:
-- '0.10'
 - '0.11'
 - '0.12'
-- iojs
-after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+- '4.0'
+- '5.0'
+- '6.0'
 sudo: false
+after_success:
+- bash <(curl -s https://codecov.io/bash)
 deploy:
-  provider: npm
-  email: tituswormer@gmail.com
-  api_key:
-    secure: nOpgR3AZ52R9ATV4DBAgFkHMsR+EvJ+0MW/VnUqW0rLbACPNv/fYqSYeiEEfZ70BskHFxMTvyvUmveHpNN4FW18+sOB+87VrVuDmCeEuq/4cvlp3cLZ202Ydn7P7pwCFCRHcK8ugk3nhcCRtDO8Hreoof2qc1awUGk18gXBjJrU=
-  on:
-    repo: wooorm/markdown-table
+  - provider: npm
+    email: tituswormer@gmail.com
+    api_key:
+      secure: KIOBGKFkJNVKaAs+f7ZrjmfQLFc1/we1Ss2lm5RzyeFbxfuIdO5jTtAB7KQeaEnry/ye9C4IklGdnwN35TZuG0qCRVBGNddV/gtB3FcfD9GxEi8MWiroC4A5F2Uv112P25GM6L8YG2vZBdAGrjOGVCEiN0OixCJVBzvjOfCOSzI=
+    on:
+      tags: true
+      node: '5.0'
+  - provider: releases
+    api_key:
+      secure: T1HM8rpCijuQ+y4ee37t3pgsufm3DIot71Ejf2n2wSKyp8PukcOflV71XOt2Sw+7DvZ2lCsL5qTwIHf7NVlXJlBse1Fd69nNTc1U2AZztVZI7gxL1kHCOwZFDJEUtJYPqwHAe8uPtDoaHBQ6u0cPysQmmDraIZMfwy40wNnOOVY=
+    file:
+      - "markdown-table.js"
+      - "markdown-table.min.js"
+    on:
+      tags: true
+      node: '6.0'
