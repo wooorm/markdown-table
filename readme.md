@@ -104,7 +104,7 @@ The following options are available:
     doesn’t place the colon but does left align.  _Only the lowercased
     first character is used, so `Right` is fine_;
 *   `options.delimiter` (`string`, default: `' | '`)
-    — Value to insert between cells. Careful, setting this to a
+    — Value to insert between cells.  Careful, setting this to a
     non-pipe breaks GitHub Flavoured Markdown;
 *   `options.start` (`string`, default: `'| '`)
     — Value to insert at the beginning of every row.
@@ -119,7 +119,7 @@ The following options are available:
 
 ### `stringLength(cell)`
 
-ANSI-sequences mess up tables on terminals. To fix this, you have to
+ANSI-sequences mess up tables on terminals.  To fix this, you have to
 pass in a `stringLength` option to detect the “visible” length of a
 cell.
 
@@ -134,7 +134,7 @@ function stringLength(cell) {
 ## Inspiration
 
 The original idea and basic implementation was inspired by James
-Halliday's [text-table][] library.
+Halliday’s [text-table][] library.
 
 ## License
 
