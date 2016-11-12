@@ -1,14 +1,6 @@
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module markdown-table
- * @fileoverview Count syllables in English words.
- */
-
 'use strict';
 
-/* Expose `markdownTable`. */
+/* Expose. */
 module.exports = markdownTable;
 
 /* Expressions. */
@@ -31,19 +23,7 @@ var PIPE = '|';
 var SPACE = ' ';
 var NEW_LINE = '\n';
 
-/**
- * Create a table from a matrix of strings.
- *
- * @param {Array.<Array.<string>>} table
- * @param {Object?} options
- * @param {boolean?} [options.rule=true]
- * @param {string?} [options.delimiter=" | "]
- * @param {string?} [options.start="| "]
- * @param {string?} [options.end=" |"]
- * @param {Array.<string>?} options.align
- * @param {function(string)?} options.stringLength
- * @return {string} Pretty table
- */
+/* Create a table from a matrix of strings. */
 function markdownTable(table, options) {
   var settings = options || {};
   var delimiter = settings.delimiter;
@@ -240,33 +220,17 @@ function markdownTable(table, options) {
   return start + rows.join(end + NEW_LINE + start) + end;
 }
 
-/**
- * Get the length of `value`.
- *
- * @param {string} value
- * @return {number}
- */
+/* Get the length of `value`. */
 function lengthNoop(value) {
   return String(value).length;
 }
 
-/**
- * Get a string consisting of `length` `character`s.
- *
- * @param {number} length
- * @param {string} [character=' ']
- * @return {string}
- */
+/* Get a string consisting of `length` `character`s. */
 function pad(length, character) {
   return Array(length + 1).join(character || SPACE);
 }
 
-/**
- * Get the position of the last dot in `value`.
- *
- * @param {string} value
- * @return {number}
- */
+/* Get the position of the last dot in `value`. */
 function dotindex(value) {
   var match = EXPRESSION_LAST_DOT.exec(value);
 

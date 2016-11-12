@@ -1,19 +1,9 @@
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module markdown-table
- * @fileoverview Test suite for `markdown-table`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var test = require('tape');
 var chalk = require('chalk');
 var table = require('./');
 
-/* Tests. */
 test('table()', function (t) {
   t.equal(
     table([
@@ -270,13 +260,8 @@ test('table()', function (t) {
   t.end();
 });
 
-/**
- * Get the length of a string, minus ANSI color
- * characters.
- *
- * @param {string} value
- * @return {string}
- */
+/* Get the length of a string, minus ANSI color
+ * characters. */
 function stringLength(value) {
   return chalk.stripColor(value).length;
 }
