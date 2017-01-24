@@ -169,7 +169,7 @@ function markdownTable(table, options) {
 
     index = -1;
 
-    while (++index < cellCount) {
+    while (settings.straighten !== false && ++index < cellCount) {
       value = cells[index];
 
       position = sizes[index] - (calculateStringLength(value) || 0);
@@ -204,11 +204,24 @@ function markdownTable(table, options) {
     rule = [];
 
     while (++index < cellCount) {
+      /* When `straighten` is false, make the rule the same size as the first row. */
+      if (settings.straighten === false) {
+        value = table[0][index];
+        if (value === null || value === undefined) {
+          value = '';
+        } else {
+          value = String(value);
+        }
+        spacing = value.length > 3 ? value.length : 3;
+      } else {
+        spacing = sizes[index];
+      }
+
       align = alignment[index];
 
       /* When `align` is left, don't add colons. */
       value = align === RIGHT || align === NULL ? DASH : COLON;
-      value += pad(sizes[index] - 2, DASH);
+      value += pad(spacing - 2, DASH);
       value += align !== LEFT && align !== NULL ? COLON : DASH;
 
       rule[index] = value;

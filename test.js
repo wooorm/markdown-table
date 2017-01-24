@@ -182,6 +182,36 @@ test('table()', function (t) {
     'should create a table delimited by `delimiter`'
   );
 
+  t.equal(
+    table([
+      ['Branch', 'Commit'],
+      ['master', '0123456789abcdef'],
+      ['staging', 'fedcba9876543210']
+    ], {straighten: false}),
+    [
+      '| Branch | Commit |',
+      '| ------ | ------ |',
+      '| master | 0123456789abcdef |',
+      '| staging | fedcba9876543210 |'
+    ].join('\n'),
+    'should create a table without straightening'
+  );
+
+  t.equal(
+    table([
+      ['A'],
+      ['master', '0123456789abcdef'],
+      ['staging', 'fedcba9876543210']
+    ], {straighten: false}),
+    [
+      '| A |  |',
+      '| --- | --- |',
+      '| master | 0123456789abcdef |',
+      '| staging | fedcba9876543210 |'
+    ].join('\n'),
+    'handles short rules and missing elements for tables without straightening'
+  );
+
   t.test(
     table([
       ['Branch', 'Commit'],
