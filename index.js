@@ -166,7 +166,7 @@ function markdownTable(table, options) {
 
     index = -1;
 
-    if (settings.straighten !== false) {
+    if (settings.pad !== false) {
       while (++index < cellCount) {
         value = cells[index];
 
@@ -203,8 +203,8 @@ function markdownTable(table, options) {
     rule = [];
 
     while (++index < cellCount) {
-      /* When `straighten` is false, make the rule the same size as the first row. */
-      if (settings.straighten === false) {
+      /* When `pad` is false, make the rule the same size as the first row. */
+      if (settings.pad === false) {
         value = table[0][index];
         spacing = calculateStringLength(stringify(value));
         spacing = spacing > MIN_CELL_SIZE ? spacing : MIN_CELL_SIZE;
