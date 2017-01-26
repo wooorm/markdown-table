@@ -117,7 +117,7 @@ The following options are available:
     `s => s.length`)
     — Method to detect the length of a cell (see below).
 *   `options.straighten` (`boolean`, default: `true`)
-    — Whether to make all the table cells the same width. Setting this
+    — Whether to make all the table cells the same width.  Setting this
     to false will cause the table rows to remain staggered.
 
 ### `stringLength(cell)`

@@ -200,14 +200,16 @@ test('table()', function (t) {
   t.equal(
     table([
       ['A'],
-      ['master', '0123456789abcdef'],
-      ['staging', 'fedcba9876543210']
+      ['', '0123456789abcdef'],
+      ['staging', 'fedcba9876543210'],
+      ['develop']
     ], {straighten: false}),
     [
       '| A |  |',
       '| --- | --- |',
-      '| master | 0123456789abcdef |',
-      '| staging | fedcba9876543210 |'
+      '|  | 0123456789abcdef |',
+      '| staging | fedcba9876543210 |',
+      '| develop |  |'
     ].join('\n'),
     'handles short rules and missing elements for tables without straightening'
   );

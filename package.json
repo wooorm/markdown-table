@@ -54,7 +54,8 @@
   "xo": {
     "space": true,
     "rules": {
-      "complexity": "off"
+      "complexity": "off",
+      "max-depth": "off"
     },
     "ignores": [
       "markdown-table.js"
