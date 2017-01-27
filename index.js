@@ -15,6 +15,7 @@ var DOT = '.';
 var NULL = '';
 
 var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL];
+var MIN_CELL_SIZE = 3;
 
 /* Characters. */
 var COLON = ':';
@@ -75,7 +76,7 @@ function markdownTable(table, options) {
       position = row[index] ? dotindex(row[index]) : null;
 
       if (!sizes[index]) {
-        sizes[index] = 3;
+        sizes[index] = MIN_CELL_SIZE;
       }
 
       if (position > sizes[index]) {
@@ -117,11 +118,7 @@ function markdownTable(table, options) {
     while (++index < cellCount) {
       value = row[index];
 
-      if (value === null || value === undefined) {
-        value = '';
-      } else {
-        value = String(value);
-      }
+      value = stringify(value);
 
       if (alignment[index] === DOT) {
         position = dotindex(value);
@@ -151,7 +148,7 @@ function markdownTable(table, options) {
       value = cells[index];
 
       if (!sizes[index]) {
-        sizes[index] = 3;
+        sizes[index] = MIN_CELL_SIZE;
       }
 
       size = calculateStringLength(value);
@@ -169,31 +166,33 @@ function markdownTable(table, options) {
 
     index = -1;
 
-    while (++index < cellCount) {
-      value = cells[index];
+    if (settings.pad !== false) {
+      while (++index < cellCount) {
+        value = cells[index];
 
-      position = sizes[index] - (calculateStringLength(value) || 0);
-      spacing = pad(position);
+        position = sizes[index] - (calculateStringLength(value) || 0);
+        spacing = pad(position);
 
-      if (alignment[index] === RIGHT || alignment[index] === DOT) {
-        value = spacing + value;
-      } else if (alignment[index] === CENTER) {
-        position /= 2;
+        if (alignment[index] === RIGHT || alignment[index] === DOT) {
+          value = spacing + value;
+        } else if (alignment[index] === CENTER) {
+          position /= 2;
 
-        if (position % 1 === 0) {
-          before = position;
-          after = position;
+          if (position % 1 === 0) {
+            before = position;
+            after = position;
+          } else {
+            before = position + 0.5;
+            after = position - 0.5;
+          }
+
+          value = pad(before) + value + pad(after);
         } else {
-          before = position + 0.5;
-          after = position - 0.5;
+          value += spacing;
         }
 
-        value = pad(before) + value + pad(after);
-      } else {
-        value += spacing;
+        cells[index] = value;
       }
-
-      cells[index] = value;
     }
 
     rows[rowIndex] = cells.join(delimiter);
@@ -204,11 +203,20 @@ function markdownTable(table, options) {
     rule = [];
 
     while (++index < cellCount) {
+      /* When `pad` is false, make the rule the same size as the first row. */
+      if (settings.pad === false) {
+        value = table[0][index];
+        spacing = calculateStringLength(stringify(value));
+        spacing = spacing > MIN_CELL_SIZE ? spacing : MIN_CELL_SIZE;
+      } else {
+        spacing = sizes[index];
+      }
+
       align = alignment[index];
 
       /* When `align` is left, don't add colons. */
       value = align === RIGHT || align === NULL ? DASH : COLON;
-      value += pad(sizes[index] - 2, DASH);
+      value += pad(spacing - 2, DASH);
       value += align !== LEFT && align !== NULL ? COLON : DASH;
 
       rule[index] = value;
@@ -218,6 +226,10 @@ function markdownTable(table, options) {
   }
 
   return start + rows.join(end + NEW_LINE + start) + end;
+}
+
+function stringify(value) {
+  return (value === null || value === undefined) ? '' : String(value);
 }
 
 /* Get the length of `value`. */

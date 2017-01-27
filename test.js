@@ -182,6 +182,38 @@ test('table()', function (t) {
     'should create a table delimited by `delimiter`'
   );
 
+  t.equal(
+    table([
+      ['Branch', 'Commit'],
+      ['master', '0123456789abcdef'],
+      ['staging', 'fedcba9876543210']
+    ], {pad: false}),
+    [
+      '| Branch | Commit |',
+      '| ------ | ------ |',
+      '| master | 0123456789abcdef |',
+      '| staging | fedcba9876543210 |'
+    ].join('\n'),
+    'should create a table without padding'
+  );
+
+  t.equal(
+    table([
+      ['A'],
+      ['', '0123456789abcdef'],
+      ['staging', 'fedcba9876543210'],
+      ['develop']
+    ], {pad: false}),
+    [
+      '| A |  |',
+      '| --- | --- |',
+      '|  | 0123456789abcdef |',
+      '| staging | fedcba9876543210 |',
+      '| develop |  |'
+    ].join('\n'),
+    'handles short rules and missing elements for tables without padding'
+  );
+
   t.test(
     table([
       ['Branch', 'Commit'],

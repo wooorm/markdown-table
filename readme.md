@@ -116,6 +116,10 @@ The following options are available:
 *   `options.stringLength` ([`Function`][length], default:
     `s => s.length`)
     — Method to detect the length of a cell (see below).
+*   `options.pad` (`boolean`, default: `true`)
+    — Whether to pad the markdown for table cells to make them the same
+    width.  Setting this to false will cause the table rows to
+    remain staggered.
 
 ### `stringLength(cell)`
 
