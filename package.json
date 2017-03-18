@@ -33,7 +33,7 @@
     "remark-cli": "^3.0.0",
     "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.4.0",
-    "xo": "^0.17.0"
+    "xo": "^0.18.0"
   },
   "scripts": {
     "build-md": "remark . -qfo",
@@ -53,6 +53,7 @@
   },
   "xo": {
     "space": true,
+    "esnext": false,
     "rules": {
       "complexity": "off",
       "max-depth": "off"
