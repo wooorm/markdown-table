@@ -12,15 +12,11 @@ npm install markdown-table
 
 ## Usage
 
-Dependencies:
-
-```javascript
-var table = require('markdown-table');
-```
-
 Normal usage (defaults to left-alignment):
 
 ```javascript
+var table = require('markdown-table');
+
 table([
   ['Branch', 'Commit'],
   ['master', '0123456789abcdef'],
@@ -30,7 +26,7 @@ table([
 
 Yields:
 
-```txt
+```markdown
 | Branch  | Commit           |
 | ------- | ---------------- |
 | master  | 0123456789abcdef |
@@ -53,7 +49,7 @@ table([
 
 Yields:
 
-```txt
+```markdown
 | Beep |   No.   |   Boop |
 | :--- | :-----: | -----: |
 | beep |   1024  |    xyz |
@@ -78,7 +74,7 @@ table([
 
 Yields:
 
-```txt
+```markdown
 |    No.      |
 | :---------: |
 |   0.1.2     |
@@ -97,29 +93,29 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 
 The following options are available:
 
-*   `options.align` (`string` or `Array.<string>`)
+*   `align` (`string` or `Array.<string>`)
     — One style for all columns, or styles for their respective
     columns.  Each style is either `'l'` (left), `'r'` (right), `'c'`
     (centre), or `'.'` (dot).  Other values are treated as `''`, which
     doesn’t place the colon but does left align.  _Only the lowercased
-    first character is used, so `Right` is fine_;
-*   `options.delimiter` (`string`, default: `' | '`)
+    first character is used, so `Right` is fine_
+*   `delimiter` (`string`, default: `' | '`)
     — Value to insert between cells.  Careful, setting this to a
-    non-pipe breaks GitHub Flavoured Markdown;
-*   `options.start` (`string`, default: `'| '`)
-    — Value to insert at the beginning of every row.
-*   `options.end` (`string`, default: `' |'`)
-    — Value to insert at the end of every row.
-*   `options.rule` (`boolean`, default: `true`)
+    non-pipe breaks GitHub Flavoured Markdown
+*   `start` (`string`, default: `'| '`)
+    — Value to insert at the beginning of every row
+*   `end` (`string`, default: `' |'`)
+    — Value to insert at the end of every row
+*   `rule` (`boolean`, default: `true`)
     — Whether to display a rule between the header and the body of the
-    table.  Careful, will break GitHub Flavoured Markdown when `false`;
-*   `options.stringLength` ([`Function`][length], default:
+    table.  Careful, will break GitHub Flavoured Markdown when `false`
+*   `stringLength` ([`Function`][length], default:
     `s => s.length`)
-    — Method to detect the length of a cell (see below).
-*   `options.pad` (`boolean`, default: `true`)
+    — Method to detect the length of a cell (see below)
+*   `pad` (`boolean`, default: `true`)
     — Whether to pad the markdown for table cells to make them the same
     width.  Setting this to false will cause the table rows to
-    remain staggered.
+    remain staggered
 
 ### `stringLength(cell)`
 
