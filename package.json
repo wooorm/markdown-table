@@ -12,19 +12,16 @@
     "rows",
     "tabular"
   ],
-  "dependencies": {},
-  "repository": "https://github.com/wooorm/markdown-table",
+  "repository": "wooorm/markdown-table",
   "bugs": "https://github.com/wooorm/markdown-table/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
   ],
-  "engines": {
-    "node": ">=0.11.0"
-  },
   "files": [
     "index.js"
   ],
+  "dependencies": {},
   "devDependencies": {
     "browserify": "^14.0.0",
     "chalk": "^2.0.0",
