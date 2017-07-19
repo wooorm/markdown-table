@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - '4.0'
-- '7.0'
+- '8.0'
 sudo: false
 after_success: bash <(curl -s https://codecov.io/bash)
 deploy:
@@ -20,4 +20,4 @@ deploy:
       - "markdown-table.min.js"
     on:
       tags: true
-      node: '7.0'
+      node: '8.0'
