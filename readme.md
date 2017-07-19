@@ -89,47 +89,56 @@ Yields:
 
 Turns a given matrix of strings (an array of arrays of strings) into a table.
 
-###### `options`
+##### `options`
 
-The following options are available:
+###### `options.align`
 
-*   `align` (`string` or `Array.<string>`)
-    — One style for all columns, or styles for their respective
-    columns.  Each style is either `'l'` (left), `'r'` (right), `'c'`
-    (centre), or `'.'` (dot).  Other values are treated as `''`, which
-    doesn’t place the colon but does left align.  _Only the lowercased
-    first character is used, so `Right` is fine_
-*   `delimiter` (`string`, default: `' | '`)
-    — Value to insert between cells.  Careful, setting this to a
-    non-pipe breaks GitHub Flavoured Markdown
-*   `start` (`string`, default: `'| '`)
-    — Value to insert at the beginning of every row
-*   `end` (`string`, default: `' |'`)
-    — Value to insert at the end of every row
-*   `rule` (`boolean`, default: `true`)
-    — Whether to display a rule between the header and the body of the
-    table.  Careful, will break GitHub Flavoured Markdown when `false`
-*   `stringLength` ([`Function`][length], default:
-    `s => s.length`)
-    — Method to detect the length of a cell (see below)
-*   `pad` (`boolean`, default: `true`)
-    — Whether to pad the markdown for table cells to make them the same
-    width.  Setting this to false will cause the table rows to
-    remain staggered
+One style for all columns, or styles for their respective columns (`string` or
+`Array.<string>`).  Each style is either `'l'` (left), `'r'` (right), `'c'`
+(centre), or `'.'` (dot).  Other values are treated as `''`, which doesn’t place
+the colon but does left align.  _Only the lowercased first character is used,
+so `Right` is fine._
 
-### `stringLength(cell)`
+###### `options.delimiter`
+
+Value to insert between cells (`string`, default: `' | '`).  Careful, setting
+this to a non-pipe breaks GitHub Flavoured Markdown.
+
+###### `options.start`
+
+Value to insert at the beginning of every row (`string`, default: `'| '`).
+
+###### `options.end`
+
+Value to insert at the end of every row (`string`, default: `' |'`).
+
+###### `options.rule`
+
+Whether to display a rule between the header and the body of the table
+(`boolean`, default: `true`).  Careful, will break GitHub Flavoured Markdown
+when `false`.
+
+###### `options.stringLength`
+
+Method to detect the length of a cell (`Function`, default: `s => s.length`).
 
 ANSI-sequences mess up tables on terminals.  To fix this, you have to
 pass in a `stringLength` option to detect the “visible” length of a
 cell.
 
 ```javascript
-var chalk = require('chalk');
+var strip = require('strip-ansi');
 
 function stringLength(cell) {
-  return chalk.stripColor(cell).length;
+  return strip(cell).length;
 }
 ```
+
+###### `options.pad`
+
+Whether to pad the markdown for table cells to make them the same width
+(`boolean`, default: `true`).  Setting this to false will cause the table
+rows to remain staggered.
 
 ## Inspiration
 
@@ -157,7 +166,5 @@ Halliday’s [text-table][] library.
 [author]: http://wooorm.com
 
 [fancy]: https://help.github.com/articles/github-flavored-markdown/#tables
-
-[length]: #stringlengthcell
 
 [text-table]: https://github.com/substack/text-table
