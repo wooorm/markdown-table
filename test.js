@@ -8,9 +8,9 @@ var table = require('./');
 test('table()', function (t) {
   t.equal(
     table([
-        ['Branch', 'Commit'],
-        ['master', '0123456789abcdef'],
-        ['staging', 'fedcba9876543210']
+      ['Branch', 'Commit'],
+      ['master', '0123456789abcdef'],
+      ['staging', 'fedcba9876543210']
     ]),
     [
       '| Branch  | Commit           |',
@@ -52,10 +52,10 @@ test('table()', function (t) {
 
   t.equal(
     table([
-        ['Beep', 'No.'],
-        ['boop', '33450'],
-        ['foo', '1006'],
-        ['bar', '45']
+      ['Beep', 'No.'],
+      ['boop', '33450'],
+      ['foo', '1006'],
+      ['bar', '45']
     ], {align: ['l', 'r']}),
     [
       '| Beep |   No. |',
