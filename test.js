@@ -2,6 +2,7 @@
 
 var test = require('tape');
 var chalk = require('chalk');
+var strip = require('strip-ansi');
 var table = require('./');
 
 test('table()', function (t) {
@@ -259,7 +260,7 @@ test('table()', function (t) {
   );
 
   t.test(
-    chalk.stripColor(table([
+    strip(table([
       ['A', 'B', 'C'],
       [
         chalk.red('Red'),
@@ -295,5 +296,5 @@ test('table()', function (t) {
 /* Get the length of a string, minus ANSI color
  * characters. */
 function stringLength(value) {
-  return chalk.stripColor(value).length;
+  return strip(value).length;
 }
