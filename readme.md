@@ -15,13 +15,13 @@ npm install markdown-table
 Normal usage (defaults to left-alignment):
 
 ```javascript
-var table = require('markdown-table');
+var table = require('markdown-table')
 
 table([
   ['Branch', 'Commit'],
   ['master', '0123456789abcdef'],
   ['staging', 'fedcba9876543210']
-]);
+])
 ```
 
 Yields:
@@ -36,15 +36,18 @@ Yields:
 With alignment:
 
 ```javascript
-table([
-  ['Beep', 'No.', 'Boop'],
-  ['beep', '1024', 'xyz'],
-  ['boop', '3388450', 'tuv'],
-  ['foo', '10106', 'qrstuv'],
-  ['bar', '45', 'lmno']
-], {
-  align: ['l', 'c', 'r']
-});
+table(
+  [
+    ['Beep', 'No.', 'Boop'],
+    ['beep', '1024', 'xyz'],
+    ['boop', '3388450', 'tuv'],
+    ['foo', '10106', 'qrstuv'],
+    ['bar', '45', 'lmno']
+  ],
+  {
+    align: ['l', 'c', 'r']
+  }
+)
 ```
 
 Yields:
@@ -61,15 +64,9 @@ Yields:
 Alignment on dots:
 
 ```javascript
-table([
-  ['No.'],
-  ['0.1.2'],
-  ['11.22.33'],
-  ['5.6.'],
-  ['1.22222'],
-], {
+table([['No.'], ['0.1.2'], ['11.22.33'], ['5.6.'], ['1.22222']], {
   align: '.'
-});
+})
 ```
 
 Yields:
@@ -127,10 +124,10 @@ pass in a `stringLength` option to detect the “visible” length of a
 cell.
 
 ```javascript
-var strip = require('strip-ansi');
+var strip = require('strip-ansi')
 
 function stringLength(cell) {
-  return strip(cell).length;
+  return strip(cell).length
 }
 ```
 

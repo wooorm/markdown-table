@@ -27,6 +27,7 @@
     "chalk": "^2.0.0",
     "esmangle": "^1.0.0",
     "nyc": "^11.0.0",
+    "prettier": "^1.12.1",
     "remark-cli": "^5.0.0",
     "remark-preset-wooorm": "^4.0.0",
     "strip-ansi": "^4.0.0",
@@ -34,23 +35,29 @@
     "xo": "^0.20.0"
   },
   "scripts": {
-    "build-md": "remark . -qfo",
+    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
     "build-bundle": "browserify index.js -s markdownTable > markdown-table.js",
     "build-mangle": "esmangle markdown-table.js > markdown-table.min.js",
-    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint": "xo",
+    "build": "npm run build-bundle && npm run build-mangle",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test.js",
-    "test": "npm run build && npm run lint && npm run test-coverage"
+    "test": "npm run format && npm run build && npm run test-coverage"
   },
-  "nyc": {
-    "check-coverage": true,
-    "lines": 100,
-    "functions": 100,
-    "branches": 100
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "semi": false,
+    "trailingComma": "none"
   },
   "xo": {
-    "space": true,
+    "prettier": true,
     "esnext": false,
     "rules": {
       "complexity": "off",
@@ -63,9 +70,10 @@
       "markdown-table.js"
     ]
   },
-  "remarkConfig": {
-    "plugins": [
-      "preset-wooorm"
-    ]
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
   }
 }
