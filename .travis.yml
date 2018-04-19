@@ -1,11 +1,12 @@
 language: node_js
 node_js:
-- '4.0'
-- '8.0'
+- lts/boron
+- node
 sudo: false
 after_success: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: T1HM8rpCijuQ+y4ee37t3pgsufm3DIot71Ejf2n2wSKyp8PukcOflV71XOt2Sw+7DvZ2lCsL5qTwIHf7NVlXJlBse1Fd69nNTc1U2AZztVZI7gxL1kHCOwZFDJEUtJYPqwHAe8uPtDoaHBQ6u0cPysQmmDraIZMfwy40wNnOOVY=
   file:
@@ -13,4 +14,3 @@ deploy:
     - "markdown-table.min.js"
   on:
     tags: true
-    node: '8.0'
