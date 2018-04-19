@@ -3,7 +3,7 @@
 var test = require('tape');
 var chalk = require('chalk');
 var strip = require('strip-ansi');
-var table = require('./');
+var table = require('.');
 
 test('table()', function (t) {
   t.equal(

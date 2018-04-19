@@ -239,7 +239,7 @@ function lengthNoop(value) {
 
 /* Get a string consisting of `length` `character`s. */
 function pad(length, character) {
-  return Array(length + 1).join(character || SPACE);
+  return new Array(length + 1).join(character || SPACE);
 }
 
 /* Get the position of the last dot in `value`. */
