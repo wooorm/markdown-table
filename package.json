@@ -35,7 +35,7 @@
     "xo": "^0.20.0"
   },
   "scripts": {
-    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "build-bundle": "browserify index.js -s markdownTable > markdown-table.js",
     "build-mangle": "esmangle markdown-table.js > markdown-table.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
