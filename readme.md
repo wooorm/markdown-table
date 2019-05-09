@@ -1,4 +1,9 @@
-# markdown-table [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# markdown-table
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
 
 Generate fancy [Markdown][fancy]/ASCII tables.
 
@@ -148,13 +153,21 @@ Halliday’s [text-table][] library.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/markdown-table.svg
+[build-badge]: https://img.shields.io/travis/wooorm/markdown-table.svg
 
-[travis]: https://travis-ci.org/wooorm/markdown-table
+[build]: https://travis-ci.org/wooorm/markdown-table
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
 
-[codecov]: https://codecov.io/github/wooorm/markdown-table
+[coverage]: https://codecov.io/github/wooorm/markdown-table
+
+[downloads-badge]: https://img.shields.io/npm/dm/markdown-table.svg
+
+[downloads]: https://www.npmjs.com/package/markdown-table
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/markdown-table.svg
+
+[size]: https://bundlephobia.com/result?p=markdown-table
 
 [npm]: https://docs.npmjs.com/cli/install
 
