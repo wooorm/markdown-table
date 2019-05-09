@@ -160,7 +160,7 @@ Halliday’s [text-table][] library.
 
 [license]: license
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
 [fancy]: https://help.github.com/articles/github-flavored-markdown/#tables
 
