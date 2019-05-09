@@ -2,25 +2,21 @@
 
 module.exports = markdownTable
 
-var EXPRESSION_DOT = /\./
-var EXPRESSION_LAST_DOT = /\.[^.]*$/
-
-// Allowed alignment values.
-var LEFT = 'l'
-var RIGHT = 'r'
-var CENTER = 'c'
-var DOT = '.'
-var NULL = ''
-
-var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL]
-var MIN_CELL_SIZE = 3
+var dotRe = /\./
+var lastDotRe = /\.[^.]*$/
 
 // Characters.
-var COLON = ':'
-var DASH = '-'
-var PIPE = '|'
-var SPACE = ' '
-var NEW_LINE = '\n'
+var space = ' '
+var lineFeed = '\n'
+var dash = '-'
+var dot = '.'
+var colon = ':'
+var lowercaseC = 'c'
+var lowercaseL = 'l'
+var lowercaseR = 'r'
+var verticalBar = '|'
+
+var minCellSize = 3
 
 // Create a table from a matrix of strings.
 function markdownTable(table, options) {
@@ -50,15 +46,15 @@ function markdownTable(table, options) {
   alignment = alignment ? alignment.concat() : []
 
   if (delimiter === null || delimiter === undefined) {
-    delimiter = SPACE + PIPE + SPACE
+    delimiter = space + verticalBar + space
   }
 
   if (start === null || start === undefined) {
-    start = PIPE + SPACE
+    start = verticalBar + space
   }
 
   if (end === null || end === undefined) {
-    end = SPACE + PIPE
+    end = space + verticalBar
   }
 
   while (++rowIndex < rowLength) {
@@ -74,7 +70,7 @@ function markdownTable(table, options) {
       position = row[index] ? dotindex(row[index]) : null
 
       if (!sizes[index]) {
-        sizes[index] = MIN_CELL_SIZE
+        sizes[index] = minCellSize
       }
 
       if (position > sizes[index]) {
@@ -97,8 +93,13 @@ function markdownTable(table, options) {
       align = align.charAt(0).toLowerCase()
     }
 
-    if (ALLIGNMENT.indexOf(align) === -1) {
-      align = NULL
+    if (
+      align !== lowercaseL &&
+      align !== lowercaseR &&
+      align !== lowercaseC &&
+      align !== dot
+    ) {
+      align = ''
     }
 
     alignment[index] = align
@@ -118,12 +119,12 @@ function markdownTable(table, options) {
 
       value = stringify(value)
 
-      if (alignment[index] === DOT) {
+      if (alignment[index] === dot) {
         position = dotindex(value)
 
         size =
           sizes[index] +
-          (EXPRESSION_DOT.test(value) ? 0 : 1) -
+          (dotRe.test(value) ? 0 : 1) -
           (calculateStringLength(value) - position)
 
         cells[index] = value + pad(size - 1)
@@ -147,7 +148,7 @@ function markdownTable(table, options) {
       value = cells[index]
 
       if (!sizes[index]) {
-        sizes[index] = MIN_CELL_SIZE
+        sizes[index] = minCellSize
       }
 
       size = calculateStringLength(value)
@@ -172,9 +173,9 @@ function markdownTable(table, options) {
         position = sizes[index] - (calculateStringLength(value) || 0)
         spacing = pad(position)
 
-        if (alignment[index] === RIGHT || alignment[index] === DOT) {
+        if (alignment[index] === lowercaseR || alignment[index] === dot) {
           value = spacing + value
-        } else if (alignment[index] === CENTER) {
+        } else if (alignment[index] === lowercaseC) {
           position /= 2
 
           if (position % 1 === 0) {
@@ -206,7 +207,7 @@ function markdownTable(table, options) {
       if (settings.pad === false) {
         value = table[0][index]
         spacing = calculateStringLength(stringify(value))
-        spacing = spacing > MIN_CELL_SIZE ? spacing : MIN_CELL_SIZE
+        spacing = spacing > minCellSize ? spacing : minCellSize
       } else {
         spacing = sizes[index]
       }
@@ -214,9 +215,9 @@ function markdownTable(table, options) {
       align = alignment[index]
 
       // When `align` is left, don't add colons.
-      value = align === RIGHT || align === NULL ? DASH : COLON
-      value += pad(spacing - 2, DASH)
-      value += align !== LEFT && align !== NULL ? COLON : DASH
+      value = align === lowercaseR || align === '' ? dash : colon
+      value += pad(spacing - 2, dash)
+      value += align !== lowercaseL && align !== '' ? colon : dash
 
       rule[index] = value
     }
@@ -224,7 +225,7 @@ function markdownTable(table, options) {
     rows.splice(1, 0, rule.join(delimiter))
   }
 
-  return start + rows.join(end + NEW_LINE + start) + end
+  return start + rows.join(end + lineFeed + start) + end
 }
 
 function stringify(value) {
@@ -238,12 +239,12 @@ function lengthNoop(value) {
 
 // Get a string consisting of `length` `character`s.
 function pad(length, character) {
-  return new Array(length + 1).join(character || SPACE)
+  return new Array(length + 1).join(character || space)
 }
 
 // Get the position of the last dot in `value`.
 function dotindex(value) {
-  var match = EXPRESSION_LAST_DOT.exec(value)
+  var match = lastDotRe.exec(value)
 
   return match ? match.index + 1 : value.length
 }
