@@ -1,16 +1,16 @@
 language: node_js
 node_js:
-- lts/boron
-- node
+  - lts/dubnium
+  - node
 sudo: false
 after_success: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
   skip_cleanup: true
   api_key:
-    secure: T1HM8rpCijuQ+y4ee37t3pgsufm3DIot71Ejf2n2wSKyp8PukcOflV71XOt2Sw+7DvZ2lCsL5qTwIHf7NVlXJlBse1Fd69nNTc1U2AZztVZI7gxL1kHCOwZFDJEUtJYPqwHAe8uPtDoaHBQ6u0cPysQmmDraIZMfwy40wNnOOVY=
+    secure: SiWKLY50sxUTwuoWghsehPF3ZqjB8gG3Y/4mrXAXOe4dTbTyJSUGTvLvpyQrKjAfns7YHCuN7x85OleOEOMfMP+RHy6Gb+VcoqUS/PLzQNtNZj0wZMdiBSPYiC8hWx11ebg+TUbAxLbtXvUpRZODCU7bM0zpAvzT1AqaN2+zV4g=
   file:
-    - "markdown-table.js"
-    - "markdown-table.min.js"
+    - 'markdown-table.js'
+    - 'markdown-table.min.js'
   on:
     tags: true
