@@ -324,8 +324,7 @@ test('table()', function(t) {
   t.end()
 })
 
-/* Get the length of a string, minus ANSI color
- * characters. */
+// Get the length of a string, minus ANSI color characters.
 function stringLength(value) {
   return strip(value).length
 }

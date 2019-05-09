@@ -1,13 +1,11 @@
 'use strict'
 
-/* Expose. */
 module.exports = markdownTable
 
-/* Expressions. */
 var EXPRESSION_DOT = /\./
 var EXPRESSION_LAST_DOT = /\.[^.]*$/
 
-/* Allowed alignment values. */
+// Allowed alignment values.
 var LEFT = 'l'
 var RIGHT = 'r'
 var CENTER = 'c'
@@ -17,14 +15,14 @@ var NULL = ''
 var ALLIGNMENT = [LEFT, RIGHT, CENTER, DOT, NULL]
 var MIN_CELL_SIZE = 3
 
-/* Characters. */
+// Characters.
 var COLON = ':'
 var DASH = '-'
 var PIPE = '|'
 var SPACE = ' '
 var NEW_LINE = '\n'
 
-/* Create a table from a matrix of strings. */
+// Create a table from a matrix of strings.
 function markdownTable(table, options) {
   var settings = options || {}
   var delimiter = settings.delimiter
@@ -89,7 +87,7 @@ function markdownTable(table, options) {
     alignment = pad(cellCount, alignment).split('')
   }
 
-  /* Make sure only valid alignments are used. */
+  // Make sure only valid alignments are used.
   index = -1
 
   while (++index < cellCount) {
@@ -204,7 +202,7 @@ function markdownTable(table, options) {
     rule = []
 
     while (++index < cellCount) {
-      /* When `pad` is false, make the rule the same size as the first row. */
+      // When `pad` is false, make the rule the same size as the first row.
       if (settings.pad === false) {
         value = table[0][index]
         spacing = calculateStringLength(stringify(value))
@@ -215,7 +213,7 @@ function markdownTable(table, options) {
 
       align = alignment[index]
 
-      /* When `align` is left, don't add colons. */
+      // When `align` is left, don't add colons.
       value = align === RIGHT || align === NULL ? DASH : COLON
       value += pad(spacing - 2, DASH)
       value += align !== LEFT && align !== NULL ? COLON : DASH
@@ -233,17 +231,17 @@ function stringify(value) {
   return value === null || value === undefined ? '' : String(value)
 }
 
-/* Get the length of `value`. */
+// Get the length of `value`.
 function lengthNoop(value) {
   return String(value).length
 }
 
-/* Get a string consisting of `length` `character`s. */
+// Get a string consisting of `length` `character`s.
 function pad(length, character) {
   return new Array(length + 1).join(character || SPACE)
 }
 
-/* Get the position of the last dot in `value`. */
+// Get the position of the last dot in `value`.
 function dotindex(value) {
   var match = EXPRESSION_LAST_DOT.exec(value)
 
