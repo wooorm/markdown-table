@@ -1,14 +1,13 @@
 {
   "name": "markdown-table",
   "version": "1.1.3",
-  "description": "Markdown (or fancy ASCII) tables",
+  "description": "Markdown tables",
   "license": "MIT",
   "keywords": [
     "text",
     "markdown",
     "table",
     "align",
-    "ascii",
     "rows",
     "tabular"
   ],
@@ -21,7 +20,9 @@
   "files": [
     "index.js"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "repeat-string": "^1.0.0"
+  },
   "devDependencies": {
     "browserify": "^16.0.0",
     "chalk": "^3.0.0",
@@ -60,8 +61,7 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "complexity": "off",
-      "max-depth": "off"
+      "complexity": "off"
     },
     "ignores": [
       "markdown-table.js"

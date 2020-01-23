@@ -5,7 +5,7 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Generate fancy [Markdown][fancy]/ASCII tables.
+Generate fancy [Markdown][fancy] tables.
 
 ## Install
 
@@ -97,14 +97,17 @@ When `true`, there is padding:
 When `false`, there is no padding:
 
 ```markdown
-|Alpha|B|
-|-|-|
-|C|Delta|
+|Alpha|B    |
+|-----|-----|
+|C    |Delta|
 ```
 
 ###### `options.delimiterStart`
 
 Whether to begin each row with the delimiter (`boolean`, default: `true`).
+
+Note: please don’t use this: it could create fragile structures that aren’t
+understandable to some Markdown parsers.
 
 When `true`, there are starting delimiters:
 
@@ -126,6 +129,9 @@ C     | Delta |
 
 Whether to end each row with the delimiter (`boolean`, default: `true`).
 
+Note: please don’t use this: it could create fragile structures that aren’t
+understandable to some Markdown parsers.
+
 When `true`, there are ending delimiters:
 
 ```markdown
@@ -140,22 +146,6 @@ When `false`, there are no ending delimiters:
 | Alpha | B
 | ----- | -----
 | C     | Delta
-```
-
-###### `options.stringLength`
-
-Method to detect the length of a cell (`Function`, default: `s => s.length`).
-
-ANSI-sequences or Emoji mess up tables on terminals.
-To fix this, you have to pass in a `stringLength` option to detect the “visible”
-length of a cell.
-
-```js
-var strip = require('strip-ansi')
-
-function stringLength(cell) {
-  return strip(cell).length
-}
 ```
 
 ###### `options.alignDelimiters`
@@ -175,6 +165,58 @@ Pass `false` to make them staggered:
 | Alpha | B |
 | - | - |
 | C | Delta |
+```
+
+###### `options.stringLength`
+
+Method to detect the length of a cell (`Function`, default: `s => s.length`).
+
+Full-width characters and ANSI-sequences all mess up delimiter alignment
+when viewing the Markdown source.
+To fix this, you have to pass in a `stringLength` option to detect the “visible”
+length of a cell (note that what is and isn’t visible depends on your editor).
+
+Without such a function, the following:
+
+```js
+table([
+  ['Alpha', 'Bravo'],
+  ['中文', 'Charlie'],
+  ['👩‍❤️‍👩', 'Delta']
+])
+```
+
+Yields:
+
+```markdown
+| Alpha | Bravo |
+| - | - |
+| 中文 | Charlie |
+| 👩‍❤️‍👩 | Delta |
+```
+
+With [`string-width`][string-width]:
+
+```js
+var width = require('string-width')
+
+table(
+  [
+    ['Alpha', 'Bravo'],
+    ['中文', 'Charlie'],
+    ['👩‍❤️‍👩', 'Delta']
+  ],
+  {stringLength: width}
+)
+```
+
+Yields:
+
+```markdown
+| Alpha | Bravo   |
+| ----- | ------- |
+| 中文  | Charlie |
+| 👩‍❤️‍👩    | Delta   |
 ```
 
 ## Inspiration
@@ -213,3 +255,5 @@ The original idea and basic implementation was inspired by James Halliday’s
 [fancy]: https://help.github.com/articles/github-flavored-markdown/#tables
 
 [text-table]: https://github.com/substack/text-table
+
+[string-width]: https://github.com/sindresorhus/string-width

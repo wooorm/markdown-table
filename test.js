@@ -22,6 +22,29 @@ test('table()', function(t) {
   )
 
   t.equal(
+    table([
+      ['Type', 'Value'],
+      ['string', 'alpha'],
+      ['number', 1],
+      ['boolean', true],
+      ['undefined', undefined],
+      ['null', null],
+      ['Array', [1, 2, 3]]
+    ]),
+    [
+      '| Type      | Value |',
+      '| --------- | ----- |',
+      '| string    | alpha |',
+      '| number    | 1     |',
+      '| boolean   | true  |',
+      '| undefined |       |',
+      '| null      |       |',
+      '| Array     | 1,2,3 |'
+    ].join('\n'),
+    'should serialize values'
+  )
+
+  t.equal(
     table(
       [
         ['A', 'B', 'C'],
@@ -115,7 +138,7 @@ test('table()', function(t) {
     'should accept a single value'
   )
 
-  t.test(
+  t.equal(
     table(
       [
         ['Beep', 'No.', 'Boop'],
@@ -166,7 +189,7 @@ test('table()', function(t) {
     ),
     [
       '| Branch | Commit |',
-      '| ------ | ------ |',
+      '| - | - |',
       '| master | 0123456789abcdef |',
       '| staging | fedcba9876543210 |'
     ].join('\n'),
@@ -184,21 +207,22 @@ test('table()', function(t) {
       {alignDelimiters: false}
     ),
     [
-      '| A |  |',
-      '| --- | --- |',
-      '|  | 0123456789abcdef |',
+      '| A | |',
+      '| - | - |',
+      '| | 0123456789abcdef |',
       '| staging | fedcba9876543210 |',
-      '| develop |  |'
+      '| develop | |'
     ].join('\n'),
     'handles short rules and missing elements for tables w/o aligned delimiters'
   )
 
-  t.test(
+  t.equal(
     table(
       [
         ['Branch', 'Commit'],
         ['master', '0123456789abcdef'],
-        ['staging', 'fedcba9876543210']
+        ['staging', 'fedcba9876543210'],
+        ['develop']
       ],
       {delimiterStart: false}
     ),
@@ -206,30 +230,33 @@ test('table()', function(t) {
       'Branch  | Commit           |',
       '------- | ---------------- |',
       'master  | 0123456789abcdef |',
-      'staging | fedcba9876543210 |'
+      'staging | fedcba9876543210 |',
+      'develop |                  |'
     ].join('\n'),
     'should create rows without starting delimiter'
   )
 
-  t.test(
+  t.equal(
     table(
       [
         ['Branch', 'Commit'],
         ['master', '0123456789abcdef'],
-        ['staging', 'fedcba9876543210']
+        ['staging', 'fedcba9876543210'],
+        ['develop']
       ],
       {delimiterEnd: false}
     ),
     [
-      '| Branch  | Commit          ',
+      '| Branch  | Commit',
       '| ------- | ----------------',
       '| master  | 0123456789abcdef',
-      '| staging | fedcba9876543210'
+      '| staging | fedcba9876543210',
+      '| develop |'
     ].join('\n'),
     'should create rows without ending delimiter'
   )
 
-  t.test(
+  t.equal(
     strip(
       table(
         [
@@ -254,7 +281,7 @@ test('table()', function(t) {
       '| Inverse | Strike | Hidden |',
       '| bar     |   45   |   lmno |'
     ].join('\n'),
-    'should use `fn` to detect cell lengths'
+    'should use `stringLength` to detect cell lengths'
   )
 
   t.end()
