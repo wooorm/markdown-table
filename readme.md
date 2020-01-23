@@ -81,18 +81,66 @@ Other values are treated as `''`, which doesn’t place the colon in the alignme
 row but does align left.
 *Only the lowercased first character is used, so `Right` is fine.*
 
-###### `options.delimiter`
+###### `options.padding`
 
-Value to insert around cells (`string`, default: `' | '`).
-*Careful, setting this to a non-pipe breaks Markdown*.
+Whether to add a space of padding between delimiters and cells (`boolean`,
+default: `true`).
 
-###### `options.start`
+When `true`, there is padding:
 
-Value to insert at the beginning of every row (`string`, default: `'| '`).
+```markdown
+| Alpha | B     |
+| ----- | ----- |
+| C     | Delta |
+```
 
-###### `options.end`
+When `false`, there is no padding:
 
-Value to insert at the end of every row (`string`, default: `' |'`).
+```markdown
+|Alpha|B|
+|-|-|
+|C|Delta|
+```
+
+###### `options.delimiterStart`
+
+Whether to begin each row with the delimiter (`boolean`, default: `true`).
+
+When `true`, there are starting delimiters:
+
+```markdown
+| Alpha | B     |
+| ----- | ----- |
+| C     | Delta |
+```
+
+When `false`, there are no starting delimiters:
+
+```markdown
+Alpha | B     |
+----- | ----- |
+C     | Delta |
+```
+
+###### `options.delimiterEnd`
+
+Whether to end each row with the delimiter (`boolean`, default: `true`).
+
+When `true`, there are ending delimiters:
+
+```markdown
+| Alpha | B     |
+| ----- | ----- |
+| C     | Delta |
+```
+
+When `false`, there are no ending delimiters:
+
+```markdown
+| Alpha | B
+| ----- | -----
+| C     | Delta
+```
 
 ###### `options.stringLength`
 

@@ -17,9 +17,10 @@ var minCellSize = 3
 // Create a table from a matrix of strings.
 function markdownTable(table, options) {
   var settings = options || {}
-  var delimiter = settings.delimiter
-  var start = settings.start
-  var end = settings.end
+  var padding = settings.padding === false ? '' : space
+  var between = padding + verticalBar + padding
+  var start = settings.delimiterStart === false ? '' : verticalBar + padding
+  var end = settings.delimiterEnd === false ? '' : padding + verticalBar
   var alignment = settings.align
   var calculateStringLength = settings.stringLength || lengthNoop
   var cellCount = 0
@@ -40,18 +41,6 @@ function markdownTable(table, options) {
   var after
 
   alignment = alignment ? alignment.concat() : []
-
-  if (delimiter === null || delimiter === undefined) {
-    delimiter = space + verticalBar + space
-  }
-
-  if (start === null || start === undefined) {
-    start = verticalBar + space
-  }
-
-  if (end === null || end === undefined) {
-    end = space + verticalBar
-  }
 
   while (++rowIndex < rowLength) {
     row = table[rowIndex]
@@ -171,7 +160,7 @@ function markdownTable(table, options) {
       }
     }
 
-    rows[rowIndex] = cells.join(delimiter)
+    rows[rowIndex] = cells.join(between)
   }
 
   index = -1
@@ -197,7 +186,7 @@ function markdownTable(table, options) {
     rule[index] = value
   }
 
-  rows.splice(1, 0, rule.join(delimiter))
+  rows.splice(1, 0, rule.join(between))
 
   return start + rows.join(end + lineFeed + start) + end
 }

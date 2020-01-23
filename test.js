@@ -144,15 +144,15 @@ test('table()', function(t) {
         ['master', '0123456789abcdef'],
         ['staging', 'fedcba9876543210']
       ],
-      {delimiter: ' - '}
+      {padding: false}
     ),
     [
-      '| Branch  - Commit           |',
-      '| ------- - ---------------- |',
-      '| master  - 0123456789abcdef |',
-      '| staging - fedcba9876543210 |'
+      '|Branch |Commit          |',
+      '|-------|----------------|',
+      '|master |0123456789abcdef|',
+      '|staging|fedcba9876543210|'
     ].join('\n'),
-    'should create a table delimited by `delimiter`'
+    'should create a table without padding'
   )
 
   t.equal(
@@ -170,7 +170,7 @@ test('table()', function(t) {
       '| master | 0123456789abcdef |',
       '| staging | fedcba9876543210 |'
     ].join('\n'),
-    'should create a table without padding'
+    'should create a table without aligned delimiters'
   )
 
   t.equal(
@@ -190,7 +190,7 @@ test('table()', function(t) {
       '| staging | fedcba9876543210 |',
       '| develop |  |'
     ].join('\n'),
-    'handles short rules and missing elements for tables without padding'
+    'handles short rules and missing elements for tables w/o aligned delimiters'
   )
 
   t.test(
@@ -200,7 +200,7 @@ test('table()', function(t) {
         ['master', '0123456789abcdef'],
         ['staging', 'fedcba9876543210']
       ],
-      {start: ''}
+      {delimiterStart: false}
     ),
     [
       'Branch  | Commit           |',
@@ -208,7 +208,7 @@ test('table()', function(t) {
       'master  | 0123456789abcdef |',
       'staging | fedcba9876543210 |'
     ].join('\n'),
-    'should create a table without starting border'
+    'should create rows without starting delimiter'
   )
 
   t.test(
@@ -218,7 +218,7 @@ test('table()', function(t) {
         ['master', '0123456789abcdef'],
         ['staging', 'fedcba9876543210']
       ],
-      {end: ''}
+      {delimiterEnd: false}
     ),
     [
       '| Branch  | Commit          ',
@@ -226,7 +226,7 @@ test('table()', function(t) {
       '| master  | 0123456789abcdef',
       '| staging | fedcba9876543210'
     ].join('\n'),
-    'should create a table without ending border'
+    'should create rows without ending delimiter'
   )
 
   t.test(
