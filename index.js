@@ -174,32 +174,30 @@ function markdownTable(table, options) {
     rows[rowIndex] = cells.join(delimiter)
   }
 
-  if (settings.rule !== false) {
-    index = -1
-    rule = []
+  index = -1
+  rule = []
 
-    while (++index < cellCount) {
-      // When `pad` is false, make the rule the same size as the first row.
-      if (settings.alignDelimiters === false) {
-        value = table[0][index]
-        spacing = calculateStringLength(stringify(value))
-        spacing = spacing > minCellSize ? spacing : minCellSize
-      } else {
-        spacing = sizes[index]
-      }
-
-      align = alignment[index]
-
-      // When `align` is left, don't add colons.
-      value = align === lowercaseR || align === '' ? dash : colon
-      value += pad(spacing - 2, dash)
-      value += align !== lowercaseL && align !== '' ? colon : dash
-
-      rule[index] = value
+  while (++index < cellCount) {
+    // When `pad` is false, make the rule the same size as the first row.
+    if (settings.alignDelimiters === false) {
+      value = table[0][index]
+      spacing = calculateStringLength(stringify(value))
+      spacing = spacing > minCellSize ? spacing : minCellSize
+    } else {
+      spacing = sizes[index]
     }
 
-    rows.splice(1, 0, rule.join(delimiter))
+    align = alignment[index]
+
+    // When `align` is left, don't add colons.
+    value = align === lowercaseR || align === '' ? dash : colon
+    value += pad(spacing - 2, dash)
+    value += align !== lowercaseL && align !== '' ? colon : dash
+
+    rule[index] = value
   }
+
+  rows.splice(1, 0, rule.join(delimiter))
 
   return start + rows.join(end + lineFeed + start) + end
 }

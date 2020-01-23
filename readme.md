@@ -77,8 +77,8 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 One style for all columns, or styles for their respective columns (`string` or
 `Array.<string>`).
 Each style is either `'l'` (left), `'r'` (right), or `'c'` (center).
-Other values are treated as `''`, which doesn’t place the colon but does align
-left.
+Other values are treated as `''`, which doesn’t place the colon in the alignment
+row but does align left.
 *Only the lowercased first character is used, so `Right` is fine.*
 
 ###### `options.delimiter`
@@ -93,12 +93,6 @@ Value to insert at the beginning of every row (`string`, default: `'| '`).
 ###### `options.end`
 
 Value to insert at the end of every row (`string`, default: `' |'`).
-
-###### `options.rule`
-
-Whether to display a rule between the header and the body of the table
-(`boolean`, default: `true`).
-*Careful, setting this to `false` will break Markdown*.
 
 ###### `options.stringLength`
 

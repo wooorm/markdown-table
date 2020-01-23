@@ -230,23 +230,6 @@ test('table()', function(t) {
   )
 
   t.test(
-    table(
-      [
-        ['Branch', 'Commit'],
-        ['master', '0123456789abcdef'],
-        ['staging', 'fedcba9876543210']
-      ],
-      {rule: false}
-    ),
-    [
-      '| Branch  | Commit           |',
-      '| master  | 0123456789abcdef |',
-      '| staging | fedcba9876543210 |'
-    ].join('\n'),
-    'should create a table without rule'
-  )
-
-  t.test(
     strip(
       table(
         [
