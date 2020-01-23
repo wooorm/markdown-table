@@ -214,7 +214,7 @@ test('table()', function(t) {
         ['master', '0123456789abcdef'],
         ['staging', 'fedcba9876543210']
       ],
-      {pad: false}
+      {alignDelimiters: false}
     ),
     [
       '| Branch | Commit |',
@@ -233,7 +233,7 @@ test('table()', function(t) {
         ['staging', 'fedcba9876543210'],
         ['develop']
       ],
-      {pad: false}
+      {alignDelimiters: false}
     ),
     [
       '| A |  |',

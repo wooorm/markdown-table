@@ -134,11 +134,24 @@ function stringLength(cell) {
 }
 ```
 
-###### `options.pad`
+###### `options.alignDelimiters`
 
-Whether to pad the markdown for table cells to make them the same width
-(`boolean`, default: `true`).
-Setting this to `false` will cause the table rows to remain staggered.
+Whether to align the delimiters (`boolean`, default: `true`).
+By default, they are aligned:
+
+```markdown
+| Alpha | B     |
+| ----- | ----- |
+| C     | Delta |
+```
+
+Pass `false` to make them staggered:
+
+```markdown
+| Alpha | B |
+| - | - |
+| C | Delta |
+```
 
 ## Inspiration
 

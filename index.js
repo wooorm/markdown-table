@@ -166,7 +166,7 @@ function markdownTable(table, options) {
 
     index = -1
 
-    if (settings.pad !== false) {
+    if (settings.alignDelimiters !== false) {
       while (++index < cellCount) {
         value = cells[index]
 
@@ -204,7 +204,7 @@ function markdownTable(table, options) {
 
     while (++index < cellCount) {
       // When `pad` is false, make the rule the same size as the first row.
-      if (settings.pad === false) {
+      if (settings.alignDelimiters === false) {
         value = table[0][index]
         spacing = calculateStringLength(stringify(value))
         spacing = spacing > minCellSize ? spacing : minCellSize
