@@ -64,23 +64,6 @@ Yields:
 | bar  |    45   |   lmno |
 ```
 
-Align on dots:
-
-```js
-table([['No.'], ['0.1.2'], ['11.22.33'], ['5.6.'], ['1.22222']], {align: '.'})
-```
-
-Yields:
-
-```markdown
-|    No.      |
-| :---------: |
-|   0.1.2     |
-| 11.22.33    |
-|   5.6.      |
-|     1.22222 |
-```
-
 ## API
 
 ### `markdownTable(table[, options])`
@@ -93,15 +76,14 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 
 One style for all columns, or styles for their respective columns (`string` or
 `Array.<string>`).
-Each style is either `'l'` (left), `'r'` (right), `'c'` (centre), or `'.'`
-(dot).
+Each style is either `'l'` (left), `'r'` (right), or `'c'` (center).
 Other values are treated as `''`, which doesn’t place the colon but does align
 left.
 *Only the lowercased first character is used, so `Right` is fine.*
 
 ###### `options.delimiter`
 
-Value to insert between cells (`string`, default: `' | '`).
+Value to insert around cells (`string`, default: `' | '`).
 *Careful, setting this to a non-pipe breaks Markdown*.
 
 ###### `options.start`

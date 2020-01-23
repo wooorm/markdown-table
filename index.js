@@ -2,14 +2,10 @@
 
 module.exports = markdownTable
 
-var dotRe = /\./
-var lastDotRe = /\.[^.]*$/
-
 // Characters.
 var space = ' '
 var lineFeed = '\n'
 var dash = '-'
-var dot = '.'
 var colon = ':'
 var lowercaseC = 'c'
 var lowercaseL = 'l'
@@ -67,7 +63,7 @@ function markdownTable(table, options) {
     }
 
     while (++index < cellCount) {
-      position = row[index] ? dotindex(row[index]) : null
+      position = row[index] ? row[index].length : null
 
       if (!sizes[index]) {
         sizes[index] = minCellSize
@@ -93,12 +89,7 @@ function markdownTable(table, options) {
       align = align.charAt(0).toLowerCase()
     }
 
-    if (
-      align !== lowercaseL &&
-      align !== lowercaseR &&
-      align !== lowercaseC &&
-      align !== dot
-    ) {
+    if (align !== lowercaseL && align !== lowercaseR && align !== lowercaseC) {
       align = ''
     }
 
@@ -115,22 +106,7 @@ function markdownTable(table, options) {
     cells = []
 
     while (++index < cellCount) {
-      value = row[index]
-
-      value = stringify(value)
-
-      if (alignment[index] === dot) {
-        position = dotindex(value)
-
-        size =
-          sizes[index] +
-          (dotRe.test(value) ? 0 : 1) -
-          (calculateStringLength(value) - position)
-
-        cells[index] = value + pad(size - 1)
-      } else {
-        cells[index] = value
-      }
+      cells[index] = stringify(row[index])
     }
 
     rows[rowIndex] = cells
@@ -173,7 +149,7 @@ function markdownTable(table, options) {
         position = sizes[index] - (calculateStringLength(value) || 0)
         spacing = pad(position)
 
-        if (alignment[index] === lowercaseR || alignment[index] === dot) {
+        if (alignment[index] === lowercaseR) {
           value = spacing + value
         } else if (alignment[index] === lowercaseC) {
           position /= 2
@@ -240,11 +216,4 @@ function lengthNoop(value) {
 // Get a string consisting of `length` `character`s.
 function pad(length, character) {
   return new Array(length + 1).join(character || space)
-}
-
-// Get the position of the last dot in `value`.
-function dotindex(value) {
-  var match = lastDotRe.exec(value)
-
-  return match ? match.index + 1 : value.length
 }
