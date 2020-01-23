@@ -7,19 +7,19 @@
 
 Generate fancy [Markdown][fancy]/ASCII tables.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install markdown-table
 ```
 
-## Usage
+## Use
 
-Normal usage (defaults to left-alignment):
+Typical usage (defaults to align left):
 
-```javascript
+```js
 var table = require('markdown-table')
 
 table([
@@ -38,9 +38,9 @@ Yields:
 | staging | fedcba9876543210 |
 ```
 
-With alignment:
+With align:
 
-```javascript
+```js
 table(
   [
     ['Beep', 'No.', 'Boop'],
@@ -49,9 +49,7 @@ table(
     ['foo', '10106', 'qrstuv'],
     ['bar', '45', 'lmno']
   ],
-  {
-    align: ['l', 'c', 'r']
-  }
+  {align: ['l', 'c', 'r']}
 )
 ```
 
@@ -66,12 +64,10 @@ Yields:
 | bar  |    45   |   lmno |
 ```
 
-Alignment on dots:
+Align on dots:
 
-```javascript
-table([['No.'], ['0.1.2'], ['11.22.33'], ['5.6.'], ['1.22222']], {
-  align: '.'
-})
+```js
+table([['No.'], ['0.1.2'], ['11.22.33'], ['5.6.'], ['1.22222']], {align: '.'})
 ```
 
 Yields:
@@ -96,15 +92,17 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 ###### `options.align`
 
 One style for all columns, or styles for their respective columns (`string` or
-`Array.<string>`).  Each style is either `'l'` (left), `'r'` (right), `'c'`
-(centre), or `'.'` (dot).  Other values are treated as `''`, which doesn’t place
-the colon but does left align.  *Only the lowercased first character is used,
-so `Right` is fine.*
+`Array.<string>`).
+Each style is either `'l'` (left), `'r'` (right), `'c'` (centre), or `'.'`
+(dot).
+Other values are treated as `''`, which doesn’t place the colon but does align
+left.
+*Only the lowercased first character is used, so `Right` is fine.*
 
 ###### `options.delimiter`
 
-Value to insert between cells (`string`, default: `' | '`).  Careful, setting
-this to a non-pipe breaks GitHub Flavoured Markdown.
+Value to insert between cells (`string`, default: `' | '`).
+*Careful, setting this to a non-pipe breaks Markdown*.
 
 ###### `options.start`
 
@@ -117,18 +115,18 @@ Value to insert at the end of every row (`string`, default: `' |'`).
 ###### `options.rule`
 
 Whether to display a rule between the header and the body of the table
-(`boolean`, default: `true`).  Careful, will break GitHub Flavoured Markdown
-when `false`.
+(`boolean`, default: `true`).
+*Careful, setting this to `false` will break Markdown*.
 
 ###### `options.stringLength`
 
 Method to detect the length of a cell (`Function`, default: `s => s.length`).
 
-ANSI-sequences mess up tables on terminals.  To fix this, you have to
-pass in a `stringLength` option to detect the “visible” length of a
-cell.
+ANSI-sequences or Emoji mess up tables on terminals.
+To fix this, you have to pass in a `stringLength` option to detect the “visible”
+length of a cell.
 
-```javascript
+```js
 var strip = require('strip-ansi')
 
 function stringLength(cell) {
@@ -139,13 +137,13 @@ function stringLength(cell) {
 ###### `options.pad`
 
 Whether to pad the markdown for table cells to make them the same width
-(`boolean`, default: `true`).  Setting this to false will cause the table
-rows to remain staggered.
+(`boolean`, default: `true`).
+Setting this to `false` will cause the table rows to remain staggered.
 
 ## Inspiration
 
-The original idea and basic implementation was inspired by James
-Halliday’s [text-table][] library.
+The original idea and basic implementation was inspired by James Halliday’s
+[`text-table`][text-table] library.
 
 ## License
 
