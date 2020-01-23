@@ -98,8 +98,8 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 One style for all columns, or styles for their respective columns (`string` or
 `Array.<string>`).  Each style is either `'l'` (left), `'r'` (right), `'c'`
 (centre), or `'.'` (dot).  Other values are treated as `''`, which doesn’t place
-the colon but does left align.  _Only the lowercased first character is used,
-so `Right` is fine._
+the colon but does left align.  *Only the lowercased first character is used,
+so `Right` is fine.*
 
 ###### `options.delimiter`
 
