@@ -5,7 +5,7 @@ var chalk = require('chalk')
 var strip = require('strip-ansi')
 var table = require('.')
 
-test('table()', function(t) {
+test('table()', function (t) {
   t.equal(
     table([
       ['Branch', 'Commit'],
