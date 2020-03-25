@@ -181,17 +181,17 @@ test('table()', function (t) {
   t.equal(
     table(
       [
-        ['Branch', 'Commit'],
-        ['master', '0123456789abcdef'],
-        ['staging', 'fedcba9876543210']
+        ['Branch', 'Commit', 'Beep', 'No.', 'Boop'],
+        ['master', '0123456789abcdef', 'beep', '1024', 'xyz'],
+        ['staging', 'fedcba9876543210', 'boop', '3388450', 'tuv']
       ],
-      {alignDelimiters: false}
+      {alignDelimiters: false, align: ['', 'l', 'c', 'r']}
     ),
     [
-      '| Branch | Commit |',
-      '| - | - |',
-      '| master | 0123456789abcdef |',
-      '| staging | fedcba9876543210 |'
+      '| Branch | Commit | Beep | No. | Boop |',
+      '| - | :- | :-: | -: | - |',
+      '| master | 0123456789abcdef | beep | 1024 | xyz |',
+      '| staging | fedcba9876543210 | boop | 3388450 | tuv |'
     ].join('\n'),
     'should create a table without aligned delimiters'
   )
