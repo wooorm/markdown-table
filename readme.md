@@ -24,7 +24,7 @@ var table = require('markdown-table')
 
 table([
   ['Branch', 'Commit'],
-  ['master', '0123456789abcdef'],
+  ['main', '0123456789abcdef'],
   ['staging', 'fedcba9876543210']
 ])
 ```
@@ -34,7 +34,7 @@ Yields:
 ```markdown
 | Branch  | Commit           |
 | ------- | ---------------- |
-| master  | 0123456789abcdef |
+| main    | 0123456789abcdef |
 | staging | fedcba9876543210 |
 ```
 

@@ -9,13 +9,13 @@ test('table()', function (t) {
   t.equal(
     table([
       ['Branch', 'Commit'],
-      ['master', '0123456789abcdef'],
+      ['main', '0123456789abcdef'],
       ['staging', 'fedcba9876543210']
     ]),
     [
       '| Branch  | Commit           |',
       '| ------- | ---------------- |',
-      '| master  | 0123456789abcdef |',
+      '| main    | 0123456789abcdef |',
       '| staging | fedcba9876543210 |'
     ].join('\n'),
     'should create a table'
@@ -164,7 +164,7 @@ test('table()', function (t) {
     table(
       [
         ['Branch', 'Commit'],
-        ['master', '0123456789abcdef'],
+        ['main', '0123456789abcdef'],
         ['staging', 'fedcba9876543210']
       ],
       {padding: false}
@@ -172,7 +172,7 @@ test('table()', function (t) {
     [
       '|Branch |Commit          |',
       '|-------|----------------|',
-      '|master |0123456789abcdef|',
+      '|main   |0123456789abcdef|',
       '|staging|fedcba9876543210|'
     ].join('\n'),
     'should create a table without padding'
@@ -182,7 +182,7 @@ test('table()', function (t) {
     table(
       [
         ['Branch', 'Commit', 'Beep', 'No.', 'Boop'],
-        ['master', '0123456789abcdef', 'beep', '1024', 'xyz'],
+        ['main', '0123456789abcdef', 'beep', '1024', 'xyz'],
         ['staging', 'fedcba9876543210', 'boop', '3388450', 'tuv']
       ],
       {alignDelimiters: false, align: ['', 'l', 'c', 'r']}
@@ -190,7 +190,7 @@ test('table()', function (t) {
     [
       '| Branch | Commit | Beep | No. | Boop |',
       '| - | :- | :-: | -: | - |',
-      '| master | 0123456789abcdef | beep | 1024 | xyz |',
+      '| main | 0123456789abcdef | beep | 1024 | xyz |',
       '| staging | fedcba9876543210 | boop | 3388450 | tuv |'
     ].join('\n'),
     'should create a table without aligned delimiters'
@@ -220,7 +220,7 @@ test('table()', function (t) {
     table(
       [
         ['Branch', 'Commit'],
-        ['master', '0123456789abcdef'],
+        ['main', '0123456789abcdef'],
         ['staging', 'fedcba9876543210'],
         ['develop']
       ],
@@ -229,7 +229,7 @@ test('table()', function (t) {
     [
       'Branch  | Commit           |',
       '------- | ---------------- |',
-      'master  | 0123456789abcdef |',
+      'main    | 0123456789abcdef |',
       'staging | fedcba9876543210 |',
       'develop |                  |'
     ].join('\n'),
@@ -240,7 +240,7 @@ test('table()', function (t) {
     table(
       [
         ['Branch', 'Commit'],
-        ['master', '0123456789abcdef'],
+        ['main', '0123456789abcdef'],
         ['staging', 'fedcba9876543210'],
         ['develop']
       ],
@@ -249,7 +249,7 @@ test('table()', function (t) {
     [
       '| Branch  | Commit',
       '| ------- | ----------------',
-      '| master  | 0123456789abcdef',
+      '| main    | 0123456789abcdef',
       '| staging | fedcba9876543210',
       '| develop |'
     ].join('\n'),
