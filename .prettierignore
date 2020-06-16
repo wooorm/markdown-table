@@ -1,3 +1,5 @@
 coverage/
 markdown-table.js
 markdown-table.min.js
+*.json
+*.md
