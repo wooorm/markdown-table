@@ -233,7 +233,7 @@ function serialize(value) {
 }
 
 function defaultStringLength(value) {
-  return value.length
+  return value.length + [...value].filter(ch => ch.codePointAt(0) > 128).length
 }
 
 function toAlignment(value) {
