@@ -229,7 +229,7 @@ function markdownTable(table, options) {
 }
 
 function serialize(value) {
-  return value === null || value === undefined ? '' : String(value.replace('|', '\\|'))
+  return value === null || value === undefined ? '' : String(value).replace('|', '\\|')
 }
 
 function defaultStringLength(value) {
