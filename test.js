@@ -41,7 +41,7 @@ test('table()', function (t) {
       '| undefined |       |',
       '| null      |       |',
       '| Array     | 1,2,3 |',
-      '| pipe char | \\|   |'
+      '| pipe char | \\|    |'
     ].join('\n'),
     'should serialize values'
   )
