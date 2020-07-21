@@ -29,7 +29,8 @@ test('table()', function (t) {
       ['boolean', true],
       ['undefined', undefined],
       ['null', null],
-      ['Array', [1, 2, 3]]
+      ['Array', [1, 2, 3]],
+      ['pipe char', '|']
     ]),
     [
       '| Type      | Value |',
@@ -39,7 +40,8 @@ test('table()', function (t) {
       '| boolean   | true  |',
       '| undefined |       |',
       '| null      |       |',
-      '| Array     | 1,2,3 |'
+      '| Array     | 1,2,3 |',
+      '| pipe char | \\|   |'
     ].join('\n'),
     'should serialize values'
   )
