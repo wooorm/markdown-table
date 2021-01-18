@@ -4,44 +4,20 @@ var repeat = require('repeat-string')
 
 module.exports = markdownTable
 
-var trailingWhitespace = / +$/
-
-// Characters.
-var space = ' '
-var lineFeed = '\n'
-var dash = '-'
-var colon = ':'
-var verticalBar = '|'
-
-var x = 0
-var C = 67
-var L = 76
-var R = 82
-var c = 99
-var l = 108
-var r = 114
-
 // Create a table from a matrix of strings.
 function markdownTable(table, options) {
   var settings = options || {}
-  var padding = settings.padding !== false
-  var start = settings.delimiterStart !== false
-  var end = settings.delimiterEnd !== false
   var align = (settings.align || []).concat()
-  var alignDelimiters = settings.alignDelimiters !== false
-  var alignments = []
   var stringLength = settings.stringLength || defaultStringLength
+  var alignments = []
   var rowIndex = -1
-  var rowLength = table.length
   var cellMatrix = []
   var sizeMatrix = []
-  var row = []
-  var sizes = []
   var longestCellByColumn = []
   var mostCellsPerRow = 0
-  var cells
   var columnIndex
-  var columnLength
+  var row
+  var sizes
   var largest
   var size
   var cell
@@ -53,21 +29,19 @@ function markdownTable(table, options) {
 
   // This is a superfluous loop if we don’t align delimiters, but otherwise we’d
   // do superfluous work when aligning, so optimize for aligning.
-  while (++rowIndex < rowLength) {
-    cells = table[rowIndex]
+  while (++rowIndex < table.length) {
     columnIndex = -1
-    columnLength = cells.length
     row = []
     sizes = []
 
-    if (columnLength > mostCellsPerRow) {
-      mostCellsPerRow = columnLength
+    if (table[rowIndex].length > mostCellsPerRow) {
+      mostCellsPerRow = table[rowIndex].length
     }
 
-    while (++columnIndex < columnLength) {
-      cell = serialize(cells[columnIndex])
+    while (++columnIndex < table[rowIndex].length) {
+      cell = serialize(table[rowIndex][columnIndex])
 
-      if (alignDelimiters === true) {
+      if (settings.alignDelimiters !== false) {
         size = stringLength(cell)
         sizes[columnIndex] = size
 
@@ -87,51 +61,50 @@ function markdownTable(table, options) {
 
   // Figure out which alignments to use.
   columnIndex = -1
-  columnLength = mostCellsPerRow
 
   if (typeof align === 'object' && 'length' in align) {
-    while (++columnIndex < columnLength) {
+    while (++columnIndex < mostCellsPerRow) {
       alignments[columnIndex] = toAlignment(align[columnIndex])
     }
   } else {
     code = toAlignment(align)
 
-    while (++columnIndex < columnLength) {
+    while (++columnIndex < mostCellsPerRow) {
       alignments[columnIndex] = code
     }
   }
 
   // Inject the alignment row.
   columnIndex = -1
-  columnLength = mostCellsPerRow
   row = []
   sizes = []
 
-  while (++columnIndex < columnLength) {
+  while (++columnIndex < mostCellsPerRow) {
     code = alignments[columnIndex]
     before = ''
     after = ''
 
-    if (code === l) {
-      before = colon
-    } else if (code === r) {
-      after = colon
-    } else if (code === c) {
-      before = colon
-      after = colon
+    if (code === 99 /* `c` */) {
+      before = ':'
+      after = ':'
+    } else if (code === 108 /* `l` */) {
+      before = ':'
+    } else if (code === 114 /* `r` */) {
+      after = ':'
     }
 
     // There *must* be at least one hyphen-minus in each alignment cell.
-    size = alignDelimiters
-      ? Math.max(
-          1,
-          longestCellByColumn[columnIndex] - before.length - after.length
-        )
-      : 1
+    size =
+      settings.alignDelimiters === false
+        ? 1
+        : Math.max(
+            1,
+            longestCellByColumn[columnIndex] - before.length - after.length
+          )
 
-    cell = before + repeat(dash, size) + after
+    cell = before + repeat('-', size) + after
 
-    if (alignDelimiters === true) {
+    if (settings.alignDelimiters !== false) {
       size = before.length + size + after.length
 
       if (size > longestCellByColumn[columnIndex]) {
@@ -149,83 +122,84 @@ function markdownTable(table, options) {
   sizeMatrix.splice(1, 0, sizes)
 
   rowIndex = -1
-  rowLength = cellMatrix.length
   lines = []
 
-  while (++rowIndex < rowLength) {
+  while (++rowIndex < cellMatrix.length) {
     row = cellMatrix[rowIndex]
     sizes = sizeMatrix[rowIndex]
     columnIndex = -1
-    columnLength = mostCellsPerRow
     line = []
 
-    while (++columnIndex < columnLength) {
+    while (++columnIndex < mostCellsPerRow) {
       cell = row[columnIndex] || ''
       before = ''
       after = ''
 
-      if (alignDelimiters === true) {
+      if (settings.alignDelimiters !== false) {
         size = longestCellByColumn[columnIndex] - (sizes[columnIndex] || 0)
         code = alignments[columnIndex]
 
-        if (code === r) {
-          before = repeat(space, size)
-        } else if (code === c) {
-          if (size % 2 === 0) {
-            before = repeat(space, size / 2)
-            after = before
+        if (code === 114 /* `r` */) {
+          before = repeat(' ', size)
+        } else if (code === 99 /* `c` */) {
+          if (size % 2) {
+            before = repeat(' ', size / 2 + 0.5)
+            after = repeat(' ', size / 2 - 0.5)
           } else {
-            before = repeat(space, size / 2 + 0.5)
-            after = repeat(space, size / 2 - 0.5)
+            before = repeat(' ', size / 2)
+            after = before
           }
         } else {
-          after = repeat(space, size)
+          after = repeat(' ', size)
         }
       }
 
-      if (start === true && columnIndex === 0) {
-        line.push(verticalBar)
+      if (settings.delimiterStart !== false && !columnIndex) {
+        line.push('|')
       }
 
       if (
-        padding === true &&
+        settings.padding !== false &&
         // Don’t add the opening space if we’re not aligning and the cell is
         // empty: there will be a closing space.
-        !(alignDelimiters === false && cell === '') &&
-        (start === true || columnIndex !== 0)
+        !(settings.alignDelimiters === false && cell === '') &&
+        (settings.delimiterStart !== false || columnIndex)
       ) {
-        line.push(space)
+        line.push(' ')
       }
 
-      if (alignDelimiters === true) {
+      if (settings.alignDelimiters !== false) {
         line.push(before)
       }
 
       line.push(cell)
 
-      if (alignDelimiters === true) {
+      if (settings.alignDelimiters !== false) {
         line.push(after)
       }
 
-      if (padding === true) {
-        line.push(space)
+      if (settings.padding !== false) {
+        line.push(' ')
       }
 
-      if (end === true || columnIndex !== columnLength - 1) {
-        line.push(verticalBar)
+      if (
+        settings.delimiterEnd !== false ||
+        columnIndex !== mostCellsPerRow - 1
+      ) {
+        line.push('|')
       }
     }
 
     line = line.join('')
 
-    if (end === false) {
-      line = line.replace(trailingWhitespace, '')
+    if (settings.delimiterEnd === false) {
+      line = line.replace(/ +$/, '')
     }
 
     lines.push(line)
   }
 
-  return lines.join(lineFeed)
+  return lines.join('\n')
 }
 
 function serialize(value) {
@@ -237,13 +211,13 @@ function defaultStringLength(value) {
 }
 
 function toAlignment(value) {
-  var code = typeof value === 'string' ? value.charCodeAt(0) : x
+  var code = typeof value === 'string' ? value.charCodeAt(0) : 0
 
-  return code === L || code === l
-    ? l
-    : code === R || code === r
-    ? r
-    : code === C || code === c
-    ? c
-    : x
+  return code === 67 /* `C` */ || code === 99 /* `c` */
+    ? 99 /* `c` */
+    : code === 76 /* `L` */ || code === 108 /* `l` */
+    ? 108 /* `l` */
+    : code === 82 /* `R` */ || code === 114 /* `r` */
+    ? 114 /* `r` */
+    : 0
 }
