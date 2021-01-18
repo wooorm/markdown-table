@@ -230,9 +230,9 @@ The original idea and basic implementation was inspired by James Halliday’s
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/wooorm/markdown-table.svg
+[build-badge]: https://github.com/wooorm/markdown-table/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/wooorm/markdown-table
+[build]: https://github.com/wooorm/markdown-table/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
 
