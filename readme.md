@@ -204,7 +204,7 @@ Yields:
 With [`string-width`][string-width]:
 
 ```js
-var width = require('string-width')
+import stringWidth from 'string-width'
 
 markdownTable(
   [
