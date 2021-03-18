@@ -23,10 +23,13 @@ test('markdownTable()', function (t) {
     markdownTable([
       ['Type', 'Value'],
       ['string', 'alpha'],
+      // @ts-ignore
       ['number', 1],
+      // @ts-ignore
       ['boolean', true],
       ['undefined', undefined],
       ['null', null],
+      // @ts-ignore
       ['Array', [1, 2, 3]]
     ]),
     [
@@ -285,7 +288,11 @@ test('markdownTable()', function (t) {
   t.end()
 })
 
-// Get the length of a string, minus ANSI color characters.
+/**
+ * Get the length of a string, minus ANSI color characters.
+ * @param {string} value
+ * @returns {number}
+ */
 function stringLength(value) {
   return strip(value).length
 }

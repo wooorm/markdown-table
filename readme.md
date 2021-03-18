@@ -81,7 +81,7 @@ Turns a given matrix of strings (an array of arrays of strings) into a table.
 ###### `options.align`
 
 One style for all columns, or styles for their respective columns (`string` or
-`Array.<string>`).
+`string[]`).
 Each style is either `'l'` (left), `'r'` (right), or `'c'` (center).
 Other values are treated as `''`, which doesn’t place the colon in the alignment
 row but does align left.

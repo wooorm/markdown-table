@@ -1,26 +1,56 @@
 import repeat from 'repeat-string'
 
-// Create a table from a matrix of strings.
+/**
+ * @typedef MarkdownTableOptions
+ * @property {string|string[]} [align]
+ * @property {boolean} [padding=true]
+ * @property {boolean} [delimiterStart=true]
+ * @property {boolean} [delimiterStart=true]
+ * @property {boolean} [delimiterEnd=true]
+ * @property {boolean} [alignDelimiters=true]
+ * @property {(value: string) => number} [stringLength]
+ */
+
+/**
+ * Create a table from a matrix of strings.
+ *
+ * @param {string[][]} table
+ * @param {MarkdownTableOptions} [options]
+ * @returns {string}
+ */
 export function markdownTable(table, options) {
   var settings = options || {}
   var align = (settings.align || []).concat()
   var stringLength = settings.stringLength || defaultStringLength
+  /** @type {number[]} Character codes as symbols for alignment per column. */
   var alignments = []
   var rowIndex = -1
+  /** @type {string[][]} Cells per row. */
   var cellMatrix = []
+  /** @type {number[][]} Sizes of each cell per row. */
   var sizeMatrix = []
+  /** @type {number[]} */
   var longestCellByColumn = []
   var mostCellsPerRow = 0
+  /** @type {number} */
   var columnIndex
+  /** @type {string[]} Cells of current row */
   var row
+  /** @type {number[]} Sizes of current row */
   var sizes
-  var largest
+  /** @type {number} Sizes of current cell */
   var size
+  /** @type {string} Current cell */
   var cell
+  /** @type {string[]} */
   var lines
+  /** @type {string[]} Chunks of current line. */
   var line
+  /** @type {string} */
   var before
+  /** @type {string} */
   var after
+  /** @type {number} */
   var code
 
   // This is a superfluous loop if we don’t align delimiters, but otherwise we’d
@@ -41,9 +71,10 @@ export function markdownTable(table, options) {
         size = stringLength(cell)
         sizes[columnIndex] = size
 
-        largest = longestCellByColumn[columnIndex]
-
-        if (largest === undefined || size > largest) {
+        if (
+          longestCellByColumn[columnIndex] === undefined ||
+          size > longestCellByColumn[columnIndex]
+        ) {
           longestCellByColumn[columnIndex] = size
         }
       }
@@ -186,26 +217,36 @@ export function markdownTable(table, options) {
       }
     }
 
-    line = line.join('')
-
-    if (settings.delimiterEnd === false) {
-      line = line.replace(/ +$/, '')
-    }
-
-    lines.push(line)
+    lines.push(
+      settings.delimiterEnd === false
+        ? line.join('').replace(/ +$/, '')
+        : line.join('')
+    )
   }
 
   return lines.join('\n')
 }
 
+/**
+ * @param {string|null|undefined} [value]
+ * @returns {string}
+ */
 function serialize(value) {
   return value === null || value === undefined ? '' : String(value)
 }
 
+/**
+ * @param {string} value
+ * @returns {number}
+ */
 function defaultStringLength(value) {
   return value.length
 }
 
+/**
+ * @param {string} value
+ * @returns {number}
+ */
 function toAlignment(value) {
   var code = typeof value === 'string' ? value.charCodeAt(0) : 0
 
