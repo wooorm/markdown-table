@@ -1,11 +1,7 @@
-'use strict'
-
-var repeat = require('repeat-string')
-
-module.exports = markdownTable
+import repeat from 'repeat-string'
 
 // Create a table from a matrix of strings.
-function markdownTable(table, options) {
+export function markdownTable(table, options) {
   var settings = options || {}
   var align = (settings.align || []).concat()
   var stringLength = settings.stringLength || defaultStringLength

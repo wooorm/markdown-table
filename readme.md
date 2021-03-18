@@ -9,6 +9,9 @@ Generate fancy [Markdown][fancy] tables.
 
 ## Install
 
+This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
+instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -20,9 +23,9 @@ npm install markdown-table
 Typical usage (defaults to align left):
 
 ```js
-var table = require('markdown-table')
+import {markdownTable} from 'markdown-table'
 
-table([
+markdownTable([
   ['Branch', 'Commit'],
   ['main', '0123456789abcdef'],
   ['staging', 'fedcba9876543210']
@@ -41,7 +44,7 @@ Yields:
 With align:
 
 ```js
-table(
+markdownTable(
   [
     ['Beep', 'No.', 'Boop'],
     ['beep', '1024', 'xyz'],
@@ -65,6 +68,9 @@ Yields:
 ```
 
 ## API
+
+This package exports the following identifiers: `markdownTable`.
+There is no default export.
 
 ### `markdownTable(table[, options])`
 
@@ -179,7 +185,7 @@ length of a cell (note that what is and isn’t visible depends on your editor).
 Without such a function, the following:
 
 ```js
-table([
+markdownTable([
   ['Alpha', 'Bravo'],
   ['中文', 'Charlie'],
   ['👩‍❤️‍👩', 'Delta']
@@ -200,7 +206,7 @@ With [`string-width`][string-width]:
 ```js
 var width = require('string-width')
 
-table(
+markdownTable(
   [
     ['Alpha', 'Bravo'],
     ['中文', 'Charlie'],

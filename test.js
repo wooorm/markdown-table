@@ -1,13 +1,11 @@
-'use strict'
+import test from 'tape'
+import chalk from 'chalk'
+import strip from 'strip-ansi'
+import {markdownTable} from './index.js'
 
-var test = require('tape')
-var chalk = require('chalk')
-var strip = require('strip-ansi')
-var table = require('.')
-
-test('table()', function (t) {
+test('markdownTable()', function (t) {
   t.equal(
-    table([
+    markdownTable([
       ['Branch', 'Commit'],
       ['main', '0123456789abcdef'],
       ['staging', 'fedcba9876543210']
@@ -22,7 +20,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table([
+    markdownTable([
       ['Type', 'Value'],
       ['string', 'alpha'],
       ['number', 1],
@@ -45,7 +43,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['A', 'B', 'C'],
         ['a', 'b', 'c'],
@@ -77,7 +75,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Beep', 'No.'],
         ['boop', '33450'],
@@ -97,7 +95,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Beep', 'No.', 'Boop'],
         ['beep', '1024', 'xyz'],
@@ -119,7 +117,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Very long', 'Even longer'],
         ['boop', '33450'],
@@ -139,7 +137,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Beep', 'No.', 'Boop'],
         ['beep', '1024', 'xyz'],
@@ -161,7 +159,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Branch', 'Commit'],
         ['main', '0123456789abcdef'],
@@ -179,7 +177,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Branch', 'Commit', 'Beep', 'No.', 'Boop'],
         ['main', '0123456789abcdef', 'beep', '1024', 'xyz'],
@@ -197,7 +195,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['A'],
         ['', '0123456789abcdef'],
@@ -217,7 +215,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Branch', 'Commit'],
         ['main', '0123456789abcdef'],
@@ -237,7 +235,7 @@ test('table()', function (t) {
   )
 
   t.equal(
-    table(
+    markdownTable(
       [
         ['Branch', 'Commit'],
         ['main', '0123456789abcdef'],
@@ -258,7 +256,7 @@ test('table()', function (t) {
 
   t.equal(
     strip(
-      table(
+      markdownTable(
         [
           ['A', 'B', 'C'],
           [chalk.red('Red'), chalk.green('Green'), chalk.blue('Blue')],
@@ -270,7 +268,7 @@ test('table()', function (t) {
           ],
           ['bar', '45', 'lmno']
         ],
-        {align: ['', 'c', 'r'], stringLength: stringLength}
+        {align: ['', 'c', 'r'], stringLength}
       )
     ),
     [
