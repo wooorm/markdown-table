@@ -1,7 +1,5 @@
 {
-  "files": [
-    "index"
-  ],
+  "files": ["index"],
   "include": ["*.js"],
   "compilerOptions": {
     "target": "ES2015",
@@ -13,6 +11,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "esModuleInterop": true
   }
 }

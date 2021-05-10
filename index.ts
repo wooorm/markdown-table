@@ -16,6 +16,8 @@ export interface MarkdownTableOptions {
   stringLength?: (value: string) => number
 }
 
+type PrimitiveType = string | number | boolean
+
 /**
  * Create a table from a matrix of strings.
  *
@@ -23,7 +25,10 @@ export interface MarkdownTableOptions {
  * @param {MarkdownTableOptions} [options]
  * @returns {string}
  */
-export function markdownTable(table: string[][], options?: MarkdownTableOptions) {
+export function markdownTable(
+  table: (PrimitiveType | PrimitiveType[])[][],
+  options?: MarkdownTableOptions
+) {
   const settings: MarkdownTableOptions = options || {}
   const align = (settings.align || []).concat()
   const stringLength = settings.stringLength || defaultStringLength
@@ -130,9 +135,9 @@ export function markdownTable(table: string[][], options?: MarkdownTableOptions)
       settings.alignDelimiters === false
         ? 1
         : Math.max(
-        1,
-        longestCellByColumn[columnIndex] - before.length - after.length
-        )
+            1,
+            longestCellByColumn[columnIndex] - before.length - after.length
+          )
 
     cell = before + '-'.repeat(size) + after
 
@@ -258,8 +263,8 @@ function toAlignment(value) {
   return code === 67 /* `C` */ || code === 99 /* `c` */
     ? 99 /* `c` */
     : code === 76 /* `L` */ || code === 108 /* `l` */
-      ? 108 /* `l` */
-      : code === 82 /* `R` */ || code === 114 /* `r` */
-        ? 114 /* `r` */
-        : 0
+    ? 108 /* `l` */
+    : code === 82 /* `R` */ || code === 114 /* `r` */
+    ? 114 /* `r` */
+    : 0
 }
