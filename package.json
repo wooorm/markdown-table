@@ -51,7 +51,7 @@
   "scripts": {
     "prepack": "npm run build && npm run format",
     "build": "rimraf dist && rollup -c -w",
-    "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
+    "format": "remark . -qfo && prettier . -w --loglevel warn",
     "test-api": "jest --all",
     "test-coverage": "jest --all --collect-coverage",
     "test": "npm run format && npm run test-coverage"
