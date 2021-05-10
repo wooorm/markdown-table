@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import strip from 'strip-ansi'
-import {markdownTable} from './index'
+import {markdownTable} from '../index'
 
 describe('markdownTable()', () => {
   it('should create a table', () => {

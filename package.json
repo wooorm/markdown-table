@@ -23,11 +23,12 @@
   ],
   "sideEffects": false,
   "type": "module",
-  "main": "index.ts",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "files": [
     "index.d.ts",
-    "index.ts"
+    "src/index.ts"
   ],
   "devDependencies": {
     "@types/jest": "^26.0.23",
@@ -39,6 +40,8 @@
     "remark-cli": "^9.0.0",
     "remark-preset-wooorm": "^8.0.0",
     "rimraf": "^3.0.0",
+    "rollup": "^2.47.0",
+    "rollup-plugin-typescript2": "^0.30.0",
     "strip-ansi": "^6.0.0",
     "ts-jest": "^26.5.6",
     "type-coverage": "^2.0.0",
@@ -47,7 +50,7 @@
   },
   "scripts": {
     "prepack": "npm run build && npm run format",
-    "build": "rimraf \"*.d.ts\" && tsc && type-coverage",
+    "build": "rimraf dist && rollup -c -w",
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
     "test-api": "jest --all",
     "test-coverage": "jest --all --collect-coverage",
