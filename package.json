@@ -50,7 +50,8 @@
   },
   "scripts": {
     "prepack": "npm run build && npm run format",
-    "build": "rimraf dist && rollup -c -w",
+    "dev": "rimraf dist && rollup -c -w",
+    "build": "rimraf dist && rollup -c",
     "format": "remark . -qfo && prettier . -w --loglevel warn",
     "test-api": "jest --all",
     "test-coverage": "jest --all --collect-coverage",
