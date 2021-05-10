@@ -1,15 +1,20 @@
-import repeat from 'repeat-string'
-
 /**
  * @typedef MarkdownTableOptions
  * @property {string|string[]} [align]
  * @property {boolean} [padding=true]
  * @property {boolean} [delimiterStart=true]
- * @property {boolean} [delimiterStart=true]
  * @property {boolean} [delimiterEnd=true]
  * @property {boolean} [alignDelimiters=true]
  * @property {(value: string) => number} [stringLength]
  */
+export interface MarkdownTableOptions {
+  align?: string | string[]
+  padding?: boolean
+  delimiterStart?: boolean
+  delimiterEnd?: boolean
+  alignDelimiters?: boolean
+  stringLength?: (value: string) => number
+}
 
 /**
  * Create a table from a matrix of strings.
@@ -18,40 +23,40 @@ import repeat from 'repeat-string'
  * @param {MarkdownTableOptions} [options]
  * @returns {string}
  */
-export function markdownTable(table, options) {
-  var settings = options || {}
-  var align = (settings.align || []).concat()
-  var stringLength = settings.stringLength || defaultStringLength
+export function markdownTable(table: string[][], options?: MarkdownTableOptions) {
+  const settings: MarkdownTableOptions = options || {}
+  const align = (settings.align || []).concat()
+  const stringLength = settings.stringLength || defaultStringLength
   /** @type {number[]} Character codes as symbols for alignment per column. */
-  var alignments = []
-  var rowIndex = -1
+  const alignments = []
+  let rowIndex = -1
   /** @type {string[][]} Cells per row. */
-  var cellMatrix = []
+  const cellMatrix = []
   /** @type {number[][]} Sizes of each cell per row. */
-  var sizeMatrix = []
+  const sizeMatrix = []
   /** @type {number[]} */
-  var longestCellByColumn = []
-  var mostCellsPerRow = 0
+  const longestCellByColumn = []
+  let mostCellsPerRow = 0
   /** @type {number} */
-  var columnIndex
+  let columnIndex
   /** @type {string[]} Cells of current row */
-  var row
+  let row
   /** @type {number[]} Sizes of current row */
-  var sizes
+  let sizes
   /** @type {number} Sizes of current cell */
-  var size
+  let size
   /** @type {string} Current cell */
-  var cell
+  let cell
   /** @type {string[]} */
-  var lines
+  let lines
   /** @type {string[]} Chunks of current line. */
-  var line
+  let line
   /** @type {string} */
-  var before
+  let before
   /** @type {string} */
-  var after
+  let after
   /** @type {number} */
-  var code
+  let code
 
   // This is a superfluous loop if we don’t align delimiters, but otherwise we’d
   // do superfluous work when aligning, so optimize for aligning.
@@ -125,11 +130,11 @@ export function markdownTable(table, options) {
       settings.alignDelimiters === false
         ? 1
         : Math.max(
-            1,
-            longestCellByColumn[columnIndex] - before.length - after.length
-          )
+        1,
+        longestCellByColumn[columnIndex] - before.length - after.length
+        )
 
-    cell = before + repeat('-', size) + after
+    cell = before + '-'.repeat(size) + after
 
     if (settings.alignDelimiters !== false) {
       size = before.length + size + after.length
@@ -167,17 +172,17 @@ export function markdownTable(table, options) {
         code = alignments[columnIndex]
 
         if (code === 114 /* `r` */) {
-          before = repeat(' ', size)
+          before = ' '.repeat(size)
         } else if (code === 99 /* `c` */) {
           if (size % 2) {
-            before = repeat(' ', size / 2 + 0.5)
-            after = repeat(' ', size / 2 - 0.5)
+            before = ' '.repeat(size / 2 + 0.5)
+            after = ' '.repeat(size / 2 - 0.5)
           } else {
-            before = repeat(' ', size / 2)
+            before = ' '.repeat(size / 2)
             after = before
           }
         } else {
-          after = repeat(' ', size)
+          after = ' '.repeat(size)
         }
       }
 
@@ -248,13 +253,13 @@ function defaultStringLength(value) {
  * @returns {number}
  */
 function toAlignment(value) {
-  var code = typeof value === 'string' ? value.charCodeAt(0) : 0
+  const code = typeof value === 'string' ? value.charCodeAt(0) : 0
 
   return code === 67 /* `C` */ || code === 99 /* `c` */
     ? 99 /* `c` */
     : code === 76 /* `L` */ || code === 108 /* `l` */
-    ? 108 /* `l` */
-    : code === 82 /* `R` */ || code === 114 /* `r` */
-    ? 114 /* `r` */
-    : 0
+      ? 108 /* `l` */
+      : code === 82 /* `R` */ || code === 114 /* `r` */
+        ? 114 /* `r` */
+        : 0
 }
