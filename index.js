@@ -1,6 +1,6 @@
 /**
  * @typedef MarkdownTableOptions
- * @property {string|string[]} [align]
+ * @property {string|null|Array.<string|null|undefined>} [align]
  * @property {boolean} [padding=true]
  * @property {boolean} [delimiterStart=true]
  * @property {boolean} [delimiterStart=true]
@@ -12,7 +12,7 @@
 /**
  * Create a table from a matrix of strings.
  *
- * @param {string[][]} table
+ * @param {Array.<Array.<string|null|undefined>>} table
  * @param {MarkdownTableOptions} [options]
  * @returns {string}
  */
@@ -241,7 +241,7 @@ function defaultStringLength(value) {
 }
 
 /**
- * @param {string} value
+ * @param {string|null|undefined} value
  * @returns {number}
  */
 function toAlignment(value) {
