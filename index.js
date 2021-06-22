@@ -1,5 +1,3 @@
-import repeat from 'repeat-string'
-
 /**
  * @typedef MarkdownTableOptions
  * @property {string|string[]} [align]
@@ -127,7 +125,7 @@ export function markdownTable(table, options) {
             longestCellByColumn[columnIndex] - before.length - after.length
           )
 
-    cell = before + repeat('-', size) + after
+    cell = before + '-'.repeat(size) + after
 
     if (settings.alignDelimiters !== false) {
       size = before.length + size + after.length
@@ -166,17 +164,17 @@ export function markdownTable(table, options) {
         code = alignments[columnIndex]
 
         if (code === 114 /* `r` */) {
-          before = repeat(' ', size)
+          before = ' '.repeat(size)
         } else if (code === 99 /* `c` */) {
           if (size % 2) {
-            before = repeat(' ', size / 2 + 0.5)
-            after = repeat(' ', size / 2 - 0.5)
+            before = ' '.repeat(size / 2 + 0.5)
+            after = ' '.repeat(size / 2 - 0.5)
           } else {
-            before = repeat(' ', size / 2)
+            before = ' '.repeat(size / 2)
             after = before
           }
         } else {
-          after = repeat(' ', size)
+          after = ' '.repeat(size)
         }
       }
 
