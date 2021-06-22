@@ -55,11 +55,6 @@
     "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node test.js",
     "test": "npm run build && npm run format && npm run test-coverage"
   },
-  "remarkConfig": {
-    "plugins": [
-      "preset-wooorm"
-    ]
-  },
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
@@ -72,10 +67,13 @@
     "prettier": true,
     "rules": {
       "complexity": "off",
-      "unicorn/prefer-switch": "off",
-      "no-var": "off",
-      "prefer-arrow-callback": "off"
+      "unicorn/prefer-switch": "off"
     }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
   },
   "typeCoverage": {
     "atLeast": 100,

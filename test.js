@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import strip from 'strip-ansi'
 import {markdownTable} from './index.js'
 
-test('markdownTable()', function (t) {
+test('markdownTable()', (t) => {
   t.equal(
     markdownTable([
       ['Branch', 'Commit'],
