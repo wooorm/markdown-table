@@ -212,7 +212,7 @@ markdownTable(
     ['中文', 'Charlie'],
     ['👩‍❤️‍👩', 'Delta']
   ],
-  {stringLength: width}
+  {stringLength: stringWidth}
 )
 ```
 
