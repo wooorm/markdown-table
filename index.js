@@ -1,6 +1,6 @@
 /**
- * @typedef MarkdownTableOptions
- * @property {string|null|Array.<string|null|undefined>} [align]
+ * @typedef Options
+ * @property {string|null|Array<string|null|undefined>} [align]
  * @property {boolean} [padding=true]
  * @property {boolean} [delimiterStart=true]
  * @property {boolean} [delimiterStart=true]
@@ -10,61 +10,50 @@
  */
 
 /**
+ * @typedef {Options} MarkdownTableOptions
+ * @todo
+ *   Remove next major.
+ */
+
+/**
  * Create a table from a matrix of strings.
  *
- * @param {Array.<Array.<string|null|undefined>>} table
- * @param {MarkdownTableOptions} [options]
+ * @param {Array<Array<string|null|undefined>>} table
+ * @param {Options} [options]
  * @returns {string}
  */
-export function markdownTable(table, options) {
-  const settings = options || {}
-  const align = (settings.align || []).concat()
-  const stringLength = settings.stringLength || defaultStringLength
-  /** @type {number[]} Character codes as symbols for alignment per column. */
+export function markdownTable(table, options = {}) {
+  const align = (options.align || []).concat()
+  const stringLength = options.stringLength || defaultStringLength
+  /** @type {Array<number>} Character codes as symbols for alignment per column. */
   const alignments = []
-  let rowIndex = -1
-  /** @type {string[][]} Cells per row. */
+  /** @type {Array<Array<string>>} Cells per row. */
   const cellMatrix = []
-  /** @type {number[][]} Sizes of each cell per row. */
+  /** @type {Array<Array<number>>} Sizes of each cell per row. */
   const sizeMatrix = []
-  /** @type {number[]} */
+  /** @type {Array<number>} */
   const longestCellByColumn = []
   let mostCellsPerRow = 0
-  /** @type {number} */
-  let columnIndex
-  /** @type {string[]} Cells of current row */
-  let row
-  /** @type {number[]} Sizes of current row */
-  let sizes
-  /** @type {number} Sizes of current cell */
-  let size
-  /** @type {string} Current cell */
-  let cell
-  /** @type {string[]} Chunks of current line. */
-  let line
-  /** @type {string} */
-  let before
-  /** @type {string} */
-  let after
-  /** @type {number} */
-  let code
+  let rowIndex = -1
 
   // This is a superfluous loop if we don’t align delimiters, but otherwise we’d
   // do superfluous work when aligning, so optimize for aligning.
   while (++rowIndex < table.length) {
-    columnIndex = -1
-    row = []
-    sizes = []
+    /** @type {Array<string>} */
+    const row = []
+    /** @type {Array<number>} */
+    const sizes = []
+    let columnIndex = -1
 
     if (table[rowIndex].length > mostCellsPerRow) {
       mostCellsPerRow = table[rowIndex].length
     }
 
     while (++columnIndex < table[rowIndex].length) {
-      cell = serialize(table[rowIndex][columnIndex])
+      const cell = serialize(table[rowIndex][columnIndex])
 
-      if (settings.alignDelimiters !== false) {
-        size = stringLength(cell)
+      if (options.alignDelimiters !== false) {
+        const size = stringLength(cell)
         sizes[columnIndex] = size
 
         if (
@@ -83,14 +72,14 @@ export function markdownTable(table, options) {
   }
 
   // Figure out which alignments to use.
-  columnIndex = -1
+  let columnIndex = -1
 
   if (typeof align === 'object' && 'length' in align) {
     while (++columnIndex < mostCellsPerRow) {
       alignments[columnIndex] = toAlignment(align[columnIndex])
     }
   } else {
-    code = toAlignment(align)
+    const code = toAlignment(align)
 
     while (++columnIndex < mostCellsPerRow) {
       alignments[columnIndex] = code
@@ -99,13 +88,15 @@ export function markdownTable(table, options) {
 
   // Inject the alignment row.
   columnIndex = -1
-  row = []
-  sizes = []
+  /** @type {Array<string>} */
+  const row = []
+  /** @type {Array<number>} */
+  const sizes = []
 
   while (++columnIndex < mostCellsPerRow) {
-    code = alignments[columnIndex]
-    before = ''
-    after = ''
+    const code = alignments[columnIndex]
+    let before = ''
+    let after = ''
 
     if (code === 99 /* `c` */) {
       before = ':'
@@ -117,17 +108,17 @@ export function markdownTable(table, options) {
     }
 
     // There *must* be at least one hyphen-minus in each alignment cell.
-    size =
-      settings.alignDelimiters === false
+    let size =
+      options.alignDelimiters === false
         ? 1
         : Math.max(
             1,
             longestCellByColumn[columnIndex] - before.length - after.length
           )
 
-    cell = before + '-'.repeat(size) + after
+    const cell = before + '-'.repeat(size) + after
 
-    if (settings.alignDelimiters !== false) {
+    if (options.alignDelimiters !== false) {
       size = before.length + size + after.length
 
       if (size > longestCellByColumn[columnIndex]) {
@@ -145,23 +136,25 @@ export function markdownTable(table, options) {
   sizeMatrix.splice(1, 0, sizes)
 
   rowIndex = -1
-  /** @type {string[]} */
+  /** @type {Array<string>} */
   const lines = []
 
   while (++rowIndex < cellMatrix.length) {
-    row = cellMatrix[rowIndex]
-    sizes = sizeMatrix[rowIndex]
+    const row = cellMatrix[rowIndex]
+    const sizes = sizeMatrix[rowIndex]
     columnIndex = -1
-    line = []
+    /** @type {Array<string>} */
+    const line = []
 
     while (++columnIndex < mostCellsPerRow) {
-      cell = row[columnIndex] || ''
-      before = ''
-      after = ''
+      const cell = row[columnIndex] || ''
+      let before = ''
+      let after = ''
 
-      if (settings.alignDelimiters !== false) {
-        size = longestCellByColumn[columnIndex] - (sizes[columnIndex] || 0)
-        code = alignments[columnIndex]
+      if (options.alignDelimiters !== false) {
+        const size =
+          longestCellByColumn[columnIndex] - (sizes[columnIndex] || 0)
+        const code = alignments[columnIndex]
 
         if (code === 114 /* `r` */) {
           before = ' '.repeat(size)
@@ -178,36 +171,36 @@ export function markdownTable(table, options) {
         }
       }
 
-      if (settings.delimiterStart !== false && !columnIndex) {
+      if (options.delimiterStart !== false && !columnIndex) {
         line.push('|')
       }
 
       if (
-        settings.padding !== false &&
+        options.padding !== false &&
         // Don’t add the opening space if we’re not aligning and the cell is
         // empty: there will be a closing space.
-        !(settings.alignDelimiters === false && cell === '') &&
-        (settings.delimiterStart !== false || columnIndex)
+        !(options.alignDelimiters === false && cell === '') &&
+        (options.delimiterStart !== false || columnIndex)
       ) {
         line.push(' ')
       }
 
-      if (settings.alignDelimiters !== false) {
+      if (options.alignDelimiters !== false) {
         line.push(before)
       }
 
       line.push(cell)
 
-      if (settings.alignDelimiters !== false) {
+      if (options.alignDelimiters !== false) {
         line.push(after)
       }
 
-      if (settings.padding !== false) {
+      if (options.padding !== false) {
         line.push(' ')
       }
 
       if (
-        settings.delimiterEnd !== false ||
+        options.delimiterEnd !== false ||
         columnIndex !== mostCellsPerRow - 1
       ) {
         line.push('|')
@@ -215,7 +208,7 @@ export function markdownTable(table, options) {
     }
 
     lines.push(
-      settings.delimiterEnd === false
+      options.delimiterEnd === false
         ? line.join('').replace(/ +$/, '')
         : line.join('')
     )
