@@ -245,7 +245,7 @@ function defaultStringLength(value) {
  * @returns {number}
  */
 function toAlignment(value) {
-  const code = typeof value === 'string' ? value.charCodeAt(0) : 0
+  const code = typeof value === 'string' ? value.codePointAt(0) : 0
 
   return code === 67 /* `C` */ || code === 99 /* `c` */
     ? 99 /* `c` */
