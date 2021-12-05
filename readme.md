@@ -5,17 +5,60 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Generate fancy [Markdown][fancy] tables.
+Generate a markdown ([GFM][]) table.
+
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`markdownTable(table[, options])`](#markdowntabletable-options)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Inspiration](#inspiration)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This is a simple package that takes table data and generates a [GitHub flavored
+markdown (GFM)][gfm] table.
+
+## When should I use this?
+
+You can use this package when you want to generate the source code of a GFM
+table from some data.
+
+This is a simple solution in that it doesn’t handle escapes or HTML or any of
+that.
+For a complete but heavier solution, build an AST and serialize it with
+[`mdast-util-to-markdown`][mdast-util-to-markdown] (with
+[`mdast-util-gfm`][mdast-util-gfm]).
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install markdown-table
+```
+
+In Deno with [Skypack][]:
+
+```js
+import {markdownTable} from 'https://cdn.skypack.dev/markdown-table@3?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import {markdownTable} from 'https://cdn.skypack.dev/markdown-table@3?min'
+</script>
 ```
 
 ## Use
@@ -74,14 +117,16 @@ There is no default export.
 
 ### `markdownTable(table[, options])`
 
-Turns a given matrix of strings (an array of arrays of strings) into a table.
+Generate a markdown table from table data (matrix of strings).
 
 ##### `options`
+
+Configuration (optional).
 
 ###### `options.align`
 
 One style for all columns, or styles for their respective columns (`string` or
-`string[]`).
+`Array<string>`).
 Each style is either `'l'` (left), `'r'` (right), or `'c'` (center).
 Other values are treated as `''`, which doesn’t place the colon in the alignment
 row but does align left.
@@ -112,8 +157,8 @@ When `false`, there is no padding:
 
 Whether to begin each row with the delimiter (`boolean`, default: `true`).
 
-Note: please don’t use this: it could create fragile structures that aren’t
-understandable to some Markdown parsers.
+> 👉 **Note**: please don’t use this: it could create fragile structures that
+> aren’t understandable to some markdown parsers.
 
 When `true`, there are starting delimiters:
 
@@ -135,8 +180,8 @@ C     | Delta |
 
 Whether to end each row with the delimiter (`boolean`, default: `true`).
 
-Note: please don’t use this: it could create fragile structures that aren’t
-understandable to some Markdown parsers.
+> 👉 **Note**: please don’t use this: it could create fragile structures that
+> aren’t understandable to some markdown parsers.
 
 When `true`, there are ending delimiters:
 
@@ -175,12 +220,14 @@ Pass `false` to make them staggered:
 
 ###### `options.stringLength`
 
-Method to detect the length of a cell (`Function`, default: `s => s.length`).
-
-Full-width characters and ANSI-sequences all mess up delimiter alignment
-when viewing the Markdown source.
-To fix this, you have to pass in a `stringLength` option to detect the “visible”
-length of a cell (note that what is and isn’t visible depends on your editor).
+Function to detect the length of table cell content (`Function`, default:
+`s => s.length`).
+This is used when aligning the delimiters (`|`) between table cells.
+Full-width characters and emoji mess up delimiter alignment when viewing the
+markdown source.
+To fix this, you can pass this function, which receives the cell content and
+returns its “visible” size.
+Note that what is and isn’t visible depends on where the text is displayed.
 
 Without such a function, the following:
 
@@ -225,10 +272,30 @@ Yields:
 | 👩‍❤️‍👩    | Delta   |
 ```
 
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports additional `Options` type that models its respective interface.
+
+## Compatibility
+
+This package is at least compatible with all maintained versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+It also works in Deno and modern browsers.
+
+## Security
+
+This package is safe.
+
 ## Inspiration
 
 The original idea and basic implementation was inspired by James Halliday’s
 [`text-table`][text-table] library.
+
+## Contribute
+
+Yes please!
+See [How to Contribute to Open Source][contribute].
 
 ## License
 
@@ -254,12 +321,24 @@ The original idea and basic implementation was inspired by James Halliday’s
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[fancy]: https://help.github.com/articles/github-flavored-markdown/#tables
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[typescript]: https://www.typescriptlang.org
+
+[contribute]: https://opensource.guide/how-to-contribute/
+
+[gfm]: https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
 
 [text-table]: https://github.com/substack/text-table
 
 [string-width]: https://github.com/sindresorhus/string-width
+
+[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
+
+[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm

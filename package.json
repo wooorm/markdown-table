@@ -1,7 +1,7 @@
 {
   "name": "markdown-table",
   "version": "3.0.1",
-  "description": "Markdown tables",
+  "description": "Generate a markdown (GFM) table",
   "license": "MIT",
   "keywords": [
     "text",
