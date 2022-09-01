@@ -1,147 +1,159 @@
+export type TMarkdownAlign =
+  | string
+  | Array<string | null | undefined>
+  | null
+  | undefined
 /**
- * @typedef Options
- *   Configuration (optional).
- * @property {string|null|Array<string|null|undefined>} [align]
- *   One style for all columns, or styles for their respective columns.
- *   Each style is either `'l'` (left), `'r'` (right), or `'c'` (center).
- *   Other values are treated as `''`, which doesn’t place the colon in the
- *   alignment row but does align left.
- *   *Only the lowercased first character is used, so `Right` is fine.*
- * @property {boolean} [padding=true]
- *   Whether to add a space of padding between delimiters and cells.
- *
- *   When `true`, there is padding:
- *
- *   ```markdown
- *   | Alpha | B     |
- *   | ----- | ----- |
- *   | C     | Delta |
- *   ```
- *
- *   When `false`, there is no padding:
- *
- *   ```markdown
- *   |Alpha|B    |
- *   |-----|-----|
- *   |C    |Delta|
- *   ```
- * @property {boolean} [delimiterStart=true]
- *   Whether to begin each row with the delimiter.
- *
- *   > 👉 **Note**: please don’t use this: it could create fragile structures
- *   > that aren’t understandable to some markdown parsers.
- *
- *   When `true`, there are starting delimiters:
- *
- *   ```markdown
- *   | Alpha | B     |
- *   | ----- | ----- |
- *   | C     | Delta |
- *   ```
- *
- *   When `false`, there are no starting delimiters:
- *
- *   ```markdown
- *   Alpha | B     |
- *   ----- | ----- |
- *   C     | Delta |
- *   ```
- * @property {boolean} [delimiterEnd=true]
- *   Whether to end each row with the delimiter.
- *
- *   > 👉 **Note**: please don’t use this: it could create fragile structures
- *   > that aren’t understandable to some markdown parsers.
- *
- *   When `true`, there are ending delimiters:
- *
- *   ```markdown
- *   | Alpha | B     |
- *   | ----- | ----- |
- *   | C     | Delta |
- *   ```
- *
- *   When `false`, there are no ending delimiters:
- *
- *   ```markdown
- *   | Alpha | B
- *   | ----- | -----
- *   | C     | Delta
- *   ```
- * @property {boolean} [alignDelimiters=true]
- *   Whether to align the delimiters.
- *   By default, they are aligned:
- *
- *   ```markdown
- *   | Alpha | B     |
- *   | ----- | ----- |
- *   | C     | Delta |
- *   ```
- *
- *   Pass `false` to make them staggered:
- *
- *   ```markdown
- *   | Alpha | B |
- *   | - | - |
- *   | C | Delta |
- *   ```
- * @property {(value: string) => number} [stringLength]
- *   Function to detect the length of table cell content.
- *   This is used when aligning the delimiters (`|`) between table cells.
- *   Full-width characters and emoji mess up delimiter alignment when viewing
- *   the markdown source.
- *   To fix this, you can pass this function, which receives the cell content
- *   and returns its “visible” size.
- *   Note that what is and isn’t visible depends on where the text is displayed.
- *
- *   Without such a function, the following:
- *
- *   ```js
- *   markdownTable([
- *     ['Alpha', 'Bravo'],
- *     ['中文', 'Charlie'],
- *     ['👩‍❤️‍👩', 'Delta']
- *   ])
- *   ```
- *
- *   Yields:
- *
- *   ```markdown
- *   | Alpha | Bravo |
- *   | - | - |
- *   | 中文 | Charlie |
- *   | 👩‍❤️‍👩 | Delta |
- *   ```
- *
- *   With [`string-width`](https://github.com/sindresorhus/string-width):
- *
- *   ```js
- *   import stringWidth from 'string-width'
- *
- *   markdownTable(
- *     [
- *       ['Alpha', 'Bravo'],
- *       ['中文', 'Charlie'],
- *       ['👩‍❤️‍👩', 'Delta']
- *     ],
- *     {stringLength: stringWidth}
- *   )
- *   ```
- *
- *   Yields:
- *
- *   ```markdown
- *   | Alpha | Bravo   |
- *   | ----- | ------- |
- *   | 中文  | Charlie |
- *   | 👩‍❤️‍👩    | Delta   |
- *   ```
+ * Configuration (optional).
  */
-
-/**
- * @typedef {Options} MarkdownTableOptions
- * @todo
- *   Remove next major.
- */
+export interface MarkdownTableOptions {
+  /**
+   * One style for all columns, or styles for their respective columns.
+   * Each style is either `'l'` (left), `'r'` (right), or `'c'` (center).
+   * Other values are treated as `''`, which doesn’t place the colon in the
+   * alignment row but does align left.
+   * *Only the lowercased first character is used, so `Right` is fine.*
+   */
+  align?: string | Array<string | null | undefined> | null | undefined
+  /**
+   * Whether to add a space of padding between delimiters and cells.
+   *
+   * When `true`, there is padding:
+   *
+   * ```markdown
+   * | Alpha | B     |
+   * | ----- | ----- |
+   * | C     | Delta |
+   * ```
+   *
+   * When `false`, there is no padding:
+   *
+   * ```markdown
+   * |Alpha|B    |
+   * |-----|-----|
+   * |C    |Delta|
+   * ```
+   */
+  padding?: boolean | undefined
+  /**
+   * Whether to begin each row with the delimiter.
+   *
+   * > 👉 **Note**: please don’t use this: it could create fragile structures
+   * > that aren’t understandable to some markdown parsers.
+   *
+   * When `true`, there are starting delimiters:
+   *
+   * ```markdown
+   * | Alpha | B     |
+   * | ----- | ----- |
+   * | C     | Delta |
+   * ```
+   *
+   * When `false`, there are no starting delimiters:
+   *
+   * ```markdown
+   * Alpha | B     |
+   * ----- | ----- |
+   * C     | Delta |
+   * ```
+   */
+  delimiterStart?: boolean | undefined
+  /**
+   * Whether to end each row with the delimiter.
+   *
+   * > 👉 **Note**: please don’t use this: it could create fragile structures
+   * > that aren’t understandable to some markdown parsers.
+   *
+   * When `true`, there are ending delimiters:
+   *
+   * ```markdown
+   * | Alpha | B     |
+   * | ----- | ----- |
+   * | C     | Delta |
+   * ```
+   *
+   * When `false`, there are no ending delimiters:
+   *
+   * ```markdown
+   * | Alpha | B
+   * | ----- | -----
+   * | C     | Delta
+   * ```
+   */
+  delimiterEnd?: boolean | undefined
+  /**
+   * Whether to align the delimiters.
+   * By default, they are aligned:
+   *
+   * ```markdown
+   * | Alpha | B     |
+   * | ----- | ----- |
+   * | C     | Delta |
+   * ```
+   *
+   * Pass `false` to make them staggered:
+   *
+   * ```markdown
+   * | Alpha | B |
+   * | - | - |
+   * | C | Delta |
+   * ```
+   */
+  alignDelimiters?: boolean | undefined
+  /**
+   * Function to detect the length of table cell content.
+   * This is used when aligning the delimiters (`|`) between table cells.
+   * Full-width characters and emoji mess up delimiter alignment when viewing
+   * the markdown source.
+   * To fix this, you can pass this function, which receives the cell content
+   * and returns its “visible” size.
+   * Note that what is and isn’t visible depends on where the text is displayed.
+   *
+   * Without such a function, the following:
+   *
+   * ```js
+   * markdownTable([
+   * ['Alpha', 'Bravo'],
+   * ['中文', 'Charlie'],
+   * ['👩‍❤️‍👩', 'Delta']
+   * ])
+   * ```
+   *
+   * Yields:
+   *
+   * ```markdown
+   * | Alpha | Bravo |
+   * | - | - |
+   * | 中文 | Charlie |
+   * | 👩‍❤️‍👩 | Delta |
+   * ```
+   *
+   * With [`string-width`](https://github.com/sindresorhus/string-width):
+   *
+   * ```js
+   * import stringWidth from 'string-width'
+   *
+   * markdownTable(
+   * [
+   * ['Alpha', 'Bravo'],
+   * ['中文', 'Charlie'],
+   * ['👩‍❤️‍👩', 'Delta']
+   * ],
+   * {stringLength: stringWidth}
+   * )
+   * ```
+   *
+   * Yields:
+   *
+   * ```markdown
+   * | Alpha | Bravo   |
+   * | ----- | ------- |
+   * | 中文  | Charlie |
+   * | 👩‍❤️‍👩    | Delta   |
+   * ```
+   */
+  stringLength?: ((value: string) => number) | undefined
+}
 
 /**
  * Generate a markdown ([GFM](https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables)) table..
@@ -152,17 +164,20 @@
  *   Configuration (optional).
  * @returns {string}
  */
-export function markdownTable(table, options = {}) {
-  const align = (options.align || []).concat()
+export function markdownTable(
+  table: Array<Array<string | null | undefined>>,
+  options: MarkdownTableOptions | undefined = {}
+): string {
+  const align: TMarkdownAlign = (options.align || []).concat()
   const stringLength = options.stringLength || defaultStringLength
-  /** @type {Array<number>} Character codes as symbols for alignment per column. */
-  const alignments = []
-  /** @type {Array<Array<string>>} Cells per row. */
-  const cellMatrix = []
-  /** @type {Array<Array<number>>} Sizes of each cell per row. */
-  const sizeMatrix = []
-  /** @type {Array<number>} */
-  const longestCellByColumn = []
+  /** Character codes as symbols for alignment per column. */
+  const alignments: number[] = []
+  /** Cells per row. */
+  const cellMatrix: string[][] = []
+  /** Sizes of each cell per row. */
+  const sizeMatrix: number[][] = []
+  /**  */
+  const longestCellByColumn: number[] = []
   let mostCellsPerRow = 0
   let rowIndex = -1
 
@@ -347,28 +362,17 @@ export function markdownTable(table, options = {}) {
   return lines.join('\n')
 }
 
-/**
- * @param {string|null|undefined} [value]
- * @returns {string}
- */
-function serialize(value) {
+function serialize(value: string | null | undefined): string {
   return value === null || value === undefined ? '' : String(value)
 }
 
-/**
- * @param {string} value
- * @returns {number}
- */
-function defaultStringLength(value) {
+function defaultStringLength(value: string): number {
   return value.length
 }
 
-/**
- * @param {string|null|undefined} value
- * @returns {number}
- */
-function toAlignment(value) {
-  const code = typeof value === 'string' ? value.codePointAt(0) : 0
+function toAlignment(value: string | null | undefined): number {
+  const code: number | undefined =
+    typeof value === 'string' ? value.codePointAt(0) : 0
 
   return code === 67 /* `C` */ || code === 99 /* `c` */
     ? 99 /* `c` */

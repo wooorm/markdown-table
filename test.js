@@ -1,7 +1,7 @@
 import test from 'tape'
 import chalk from 'chalk'
 import strip from 'strip-ansi'
-import {markdownTable} from './index.js'
+import {markdownTable} from './dist/index.es.js'
 
 test('markdownTable()', (t) => {
   t.equal(

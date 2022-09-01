@@ -23,11 +23,18 @@
   ],
   "sideEffects": false,
   "type": "module",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "typings": "typings/index.d.ts",
+  "exports": {
+      ".": {
+          "import": "./dist/index.es.js",
+          "require": "./dist/index.cjs.js"
+      }
+  },
   "files": [
-    "index.d.ts",
-    "index.js"
+    "dist/",
+    "typings/"
   ],
   "devDependencies": {
     "@types/tape": "^4.0.0",
@@ -39,17 +46,20 @@
     "rimraf": "^3.0.0",
     "strip-ansi": "^7.0.0",
     "tape": "^5.0.0",
-    "type-coverage": "^2.0.0",
-    "typescript": "^4.0.0",
-    "xo": "^0.47.0"
+    "typescript": "^4.8.2",
+    "xo": "^0.47.0",
+    "rollup": "^2.70.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.31.2"
   },
   "scripts": {
     "prepublishOnly": "npm run build && npm run format",
-    "build": "rimraf \"*.d.ts\" && tsc && type-coverage",
-    "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
+    "clean": "rimraf dist/* && rimraf typings/*",
+    "build": "rollup --config ./rollup.config.ts --configPlugin typescript2",
+    "format": "prettier -w lib/*",
     "test-api": "node --conditions development test.js",
     "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run format && npm run test-coverage"
+    "test": "npm run format && npm run build && npm run test-coverage"
   },
   "prettier": {
     "tabWidth": 2,
@@ -58,22 +68,5 @@
     "bracketSpacing": false,
     "semi": false,
     "trailingComma": "none"
-  },
-  "xo": {
-    "prettier": true,
-    "rules": {
-      "complexity": "off",
-      "unicorn/prefer-switch": "off"
-    }
-  },
-  "remarkConfig": {
-    "plugins": [
-      "preset-wooorm"
-    ]
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true
   }
 }

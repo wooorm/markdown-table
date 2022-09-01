@@ -1,16 +1,25 @@
 {
-  "include": ["*.js"],
+  "include": ["lib/*.ts"],
+  "exclude": [],
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2020"],
-    "module": "ES2020",
+    "lib": ["esnext"],
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "allowJs": true,
-    "checkJs": true,
+    "sourceMap": false,
+    "noEmit": true,
+    "noEmitHelpers": true,
+    "removeComments": false,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+
+    "strict": true,
+    "noEmitOnError": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "strict": true
+    "declarationDir": "typings"
   }
 }
