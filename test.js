@@ -1,10 +1,11 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import chalk from 'chalk'
 import strip from 'strip-ansi'
 import {markdownTable} from './index.js'
 
-test('markdownTable()', (t) => {
-  t.equal(
+test('markdownTable()', () => {
+  assert.equal(
     markdownTable([
       ['Branch', 'Commit'],
       ['main', '0123456789abcdef'],
@@ -19,7 +20,7 @@ test('markdownTable()', (t) => {
     'should create a table'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable([
       ['Type', 'Value'],
       ['string', 'alpha'],
@@ -45,7 +46,7 @@ test('markdownTable()', (t) => {
     'should serialize values'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['A', 'B', 'C'],
@@ -77,7 +78,7 @@ test('markdownTable()', (t) => {
     'should work correctly when cells are missing'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Beep', 'No.'],
@@ -97,7 +98,7 @@ test('markdownTable()', (t) => {
     'should align left and right'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Beep', 'No.', 'Boop'],
@@ -119,7 +120,7 @@ test('markdownTable()', (t) => {
     'should align center'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Very long', 'Even longer'],
@@ -139,7 +140,7 @@ test('markdownTable()', (t) => {
     'should accept a single value'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Beep', 'No.', 'Boop'],
@@ -161,7 +162,7 @@ test('markdownTable()', (t) => {
     'should accept multi-character values'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Branch', 'Commit'],
@@ -179,7 +180,7 @@ test('markdownTable()', (t) => {
     'should create a table without padding'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Branch', 'Commit', 'Beep', 'No.', 'Boop'],
@@ -197,7 +198,7 @@ test('markdownTable()', (t) => {
     'should create a table without aligned delimiters'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['A'],
@@ -217,7 +218,7 @@ test('markdownTable()', (t) => {
     'handles short rules and missing elements for tables w/o aligned delimiters'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Branch', 'Commit'],
@@ -237,7 +238,7 @@ test('markdownTable()', (t) => {
     'should create rows without starting delimiter'
   )
 
-  t.equal(
+  assert.equal(
     markdownTable(
       [
         ['Branch', 'Commit'],
@@ -257,7 +258,7 @@ test('markdownTable()', (t) => {
     'should create rows without ending delimiter'
   )
 
-  t.equal(
+  assert.equal(
     strip(
       markdownTable(
         [
@@ -284,8 +285,6 @@ test('markdownTable()', (t) => {
     ].join('\n'),
     'should use `stringLength` to detect cell lengths'
   )
-
-  t.end()
 })
 
 /**
