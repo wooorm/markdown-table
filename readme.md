@@ -41,7 +41,7 @@ For a complete but heavier solution, build an AST and serialize it with
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+, 16.0+), install with [npm][]:
 
 ```sh
 npm install markdown-table
@@ -112,7 +112,7 @@ Yields:
 
 ## API
 
-This package exports the following identifiers: `markdownTable`.
+This package exports the identifier `markdownTable`.
 There is no default export.
 
 ### `markdownTable(table[, options])`
@@ -275,12 +275,12 @@ Yields:
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports additional `Options` type that models its respective interface.
+It exports the additional type `Options`.
 
 ## Compatibility
 
 This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 It also works in Deno and modern browsers.
 
 ## Security
