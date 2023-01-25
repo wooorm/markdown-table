@@ -285,6 +285,21 @@ test('markdownTable()', () => {
     ].join('\n'),
     'should use `stringLength` to detect cell lengths'
   )
+
+  assert.equal(
+    markdownTable([
+      ['A', 'B'],
+      ['Single', 'This is a single line'],
+      ['Multiple', 'This one\nspreads over\nmultiple lines']
+    ]),
+    [
+      '| A        | B                                            |',
+      '| -------- | -------------------------------------------- |',
+      '| Single   | This is a single line                        |',
+      '| Multiple | This one<br/>spreads over<br/>multiple lines |'
+    ].join('\n'),
+    'should convert line breaks'
+  )
 })
 
 /**
