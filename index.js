@@ -352,7 +352,9 @@ export function markdownTable(table, options = {}) {
  * @returns {string}
  */
 function serialize(value) {
-  return value === null || value === undefined ? '' : String(value)
+  return value === null || value === undefined
+    ? ''
+    : String(value).replace(/\n/g, '<br/>')
 }
 
 /**
