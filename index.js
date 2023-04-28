@@ -144,10 +144,16 @@
  */
 
 /**
+ * @typedef Stringer
+ *   Any value that has a `.toString()` method.
+ * @property {() => string} toString
+ */
+
+/**
  * Generate a markdown ([GFM](https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables)) table..
  *
- * @param {ReadonlyArray<ReadonlyArray<string|null|undefined>>} table
- *   Table data (matrix of strings).
+ * @param {ReadonlyArray<ReadonlyArray<Stringer|null|undefined>>} table
+ *   Table data (matrix of strings or values with a `toString` method).
  * @param {Options} [options]
  *   Configuration (optional).
  * @returns {string}
@@ -348,7 +354,7 @@ export function markdownTable(table, options = {}) {
 }
 
 /**
- * @param {string|null|undefined} [value]
+ * @param {Stringer|null|undefined} [value]
  * @returns {string}
  */
 function serialize(value) {

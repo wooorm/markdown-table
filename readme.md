@@ -117,7 +117,9 @@ There is no default export.
 
 ### `markdownTable(table[, options])`
 
-Generate a markdown table from table data (matrix of strings).
+Generate a markdown table from table data (matrix of strings).  Non-string
+values will be coerced to strings via the
+[String constructor][string-constructor].
 
 ##### `options`
 
@@ -342,3 +344,5 @@ See [How to Contribute to Open Source][contribute].
 [mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
 
 [mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+
+[string-constructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/String
