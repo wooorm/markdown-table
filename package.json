@@ -1,34 +1,10 @@
 {
-  "name": "markdown-table",
-  "version": "3.0.3",
-  "description": "Generate a markdown (GFM) table",
-  "license": "MIT",
-  "keywords": [
-    "text",
-    "markdown",
-    "table",
-    "align",
-    "rows",
-    "tabular"
-  ],
-  "repository": "wooorm/markdown-table",
-  "bugs": "https://github.com/wooorm/markdown-table/issues",
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/wooorm"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/wooorm/markdown-table/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "sideEffects": false,
-  "type": "module",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "files": [
-    "index.d.ts",
-    "index.js"
-  ],
+  "description": "Generate a markdown (GFM) table",
   "devDependencies": {
     "@types/node": "^22.0.0",
     "c8": "^10.0.0",
@@ -41,37 +17,60 @@
     "typescript": "^5.0.0",
     "xo": "^0.59.0"
   },
-  "scripts": {
-    "prepack": "npm run build && npm run format",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "format": "remark . -qfo && prettier . -w --log-level warn && xo --fix",
-    "test-api": "node --conditions development test.js",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
-    "test": "npm run build && npm run format && npm run test-coverage"
+  "files": [
+    "index.d.ts",
+    "index.js"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/wooorm"
   },
+  "keywords": [
+    "align",
+    "markdown",
+    "rows",
+    "table",
+    "tabular",
+    "text"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "markdown-table",
   "prettier": {
-    "tabWidth": 2,
-    "useTabs": false,
-    "singleQuote": true,
     "bracketSpacing": false,
     "semi": false,
-    "trailingComma": "none"
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "useTabs": false
   },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-wooorm"
+    ]
+  },
+  "repository": "wooorm/markdown-table",
+  "scripts": {
+    "build": "tsc --build --clean && tsc --build && type-coverage",
+    "format": "remark --frail --output --quiet -- . && prettier --log-level warn --write -- . && xo --fix",
+    "test-api": "node --conditions development test.js",
+    "test-coverage": "c8 --100 --check-coverage --reporter lcov -- npm run test-api",
+    "test": "npm run build && npm run format && npm run test-coverage"
+  },
+  "sideEffects": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
+  },
+  "types": "index.d.ts",
+  "type": "module",
+  "version": "3.0.3",
   "xo": {
     "prettier": true,
     "rules": {
       "complexity": "off",
       "unicorn/prefer-switch": "off"
     }
-  },
-  "remarkConfig": {
-    "plugins": [
-      "preset-wooorm"
-    ]
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true
   }
 }
