@@ -9,18 +9,18 @@ Generate a markdown ([GFM][]) table.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`markdownTable(table[, options])`](#markdowntabletable-options)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Inspiration](#inspiration)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`markdownTable(table[, options])`](#markdowntabletable-options)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Inspiration](#inspiration)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
