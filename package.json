@@ -71,7 +71,8 @@
     "prettier": true,
     "rules": {
       "complexity": "off",
-      "unicorn/prefer-switch": "off"
+      "unicorn/prefer-switch": "off",
+      "unicorn/prefer-string-replace-all": "off"
     }
   }
 }

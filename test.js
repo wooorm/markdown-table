@@ -55,6 +55,25 @@ test('markdownTable()', async function (t) {
   })
 
   await t.test(
+    'should generate valid markdown when data contains |',
+    async function () {
+      assert.equal(
+        markdownTable([
+          ['Name', 'Type'],
+          ['size', '"tiny" | "small" | "medium" | "large"'],
+          ['status', '"success" | "warning" | "error"']
+        ]),
+        [
+          '| Name   | Type                                     |',
+          '| ------ | ---------------------------------------- |',
+          '| size   | "tiny" \\| "small" \\| "medium" \\| "large" |',
+          '| status | "success" \\| "warning" \\| "error"        |'
+        ].join('\n')
+      )
+    }
+  )
+
+  await t.test(
     'should work correctly when cells are missing',
     async function () {
       assert.equal(

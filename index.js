@@ -371,7 +371,9 @@ export function markdownTable(table, options) {
  *   Result.
  */
 function serialize(value) {
-  return value === null || value === undefined ? '' : String(value)
+  return value === null || value === undefined
+    ? ''
+    : String(value).replace(/\|/g, '\\|')
 }
 
 /**
