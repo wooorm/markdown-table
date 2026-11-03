@@ -1,11 +1,11 @@
 # markdown-table
 
-[![Build][build-badge]][build]
-[![Coverage][coverage-badge]][coverage]
-[![Downloads][downloads-badge]][downloads]
-[![Size][size-badge]][size]
+[![Build][badge-build-image]][badge-build-url]
+[![Coverage][badge-coverage-image]][badge-coverage-url]
+[![Downloads][badge-downloads-image]][badge-downloads-url]
+[![Size][badge-size-image]][badge-size-url]
 
-Generate a markdown ([GFM][]) table.
+Generate a markdown ([GFM][github-docs-gfm]) table.
 
 ## Contents
 
@@ -25,7 +25,7 @@ Generate a markdown ([GFM][]) table.
 ## What is this?
 
 This is a simple package that takes table data and generates a [GitHub flavored
-markdown (GFM)][gfm] table.
+markdown (GFM)][github-docs-gfm] table.
 
 ## When should I use this?
 
@@ -35,13 +35,13 @@ table from some data.
 This is a simple solution in that it doesn’t handle escapes or HTML or any of
 that.
 For a complete but heavier solution, build an AST and serialize it with
-[`mdast-util-to-markdown`][mdast-util-to-markdown] (with
-[`mdast-util-gfm`][mdast-util-gfm]).
+[`mdast-util-to-markdown`][github-mdast-util-to-markdown] (with
+[`mdast-util-gfm`][github-mdast-util-gfm]).
 
 ## Install
 
-This package is [ESM only][esm].
-In Node.js (version 14.14+, 16.0+), install with [npm][]:
+This package is [ESM only][github-gist-esm].
+In Node.js (version 14.14+, 16.0+), install with [npm][npmjs-install]:
 
 ```sh
 npm install markdown-table
@@ -123,6 +123,25 @@ Generate a markdown table from table data (matrix of strings).
 
 Configuration (optional).
 
+###### `options.alignDelimiters`
+
+Whether to align the delimiters (`boolean`, default: `true`).
+By default, they are aligned:
+
+```markdown
+| Alpha | B     |
+| ----- | ----- |
+| C     | Delta |
+```
+
+Pass `false` to make them staggered:
+
+```markdown
+| Alpha | B |
+| - | - |
+| C | Delta |
+```
+
 ###### `options.align`
 
 One style for all columns, or styles for their respective columns (`string` or
@@ -132,12 +151,14 @@ Other values are treated as `''`, which doesn’t place the colon in the alignme
 row but does align left.
 *Only the lowercased first character is used, so `Right` is fine.*
 
-###### `options.padding`
+###### `options.delimiterEnd`
 
-Whether to add a space of padding between delimiters and cells (`boolean`,
-default: `true`).
+Whether to end each row with the delimiter (`boolean`, default: `true`).
 
-When `true`, there is padding:
+> 👉 **Note**: please don’t use this: it could create fragile structures that
+> aren’t understandable to some markdown parsers.
+
+When `true`, there are ending delimiters:
 
 ```markdown
 | Alpha | B     |
@@ -145,12 +166,12 @@ When `true`, there is padding:
 | C     | Delta |
 ```
 
-When `false`, there is no padding:
+When `false`, there are no ending delimiters:
 
 ```markdown
-|Alpha|B    |
-|-----|-----|
-|C    |Delta|
+| Alpha | B
+| ----- | -----
+| C     | Delta
 ```
 
 ###### `options.delimiterStart`
@@ -176,14 +197,12 @@ Alpha | B     |
 C     | Delta |
 ```
 
-###### `options.delimiterEnd`
+###### `options.padding`
 
-Whether to end each row with the delimiter (`boolean`, default: `true`).
+Whether to add a space of padding between delimiters and cells (`boolean`,
+default: `true`).
 
-> 👉 **Note**: please don’t use this: it could create fragile structures that
-> aren’t understandable to some markdown parsers.
-
-When `true`, there are ending delimiters:
+When `true`, there is padding:
 
 ```markdown
 | Alpha | B     |
@@ -191,31 +210,12 @@ When `true`, there are ending delimiters:
 | C     | Delta |
 ```
 
-When `false`, there are no ending delimiters:
+When `false`, there is no padding:
 
 ```markdown
-| Alpha | B
-| ----- | -----
-| C     | Delta
-```
-
-###### `options.alignDelimiters`
-
-Whether to align the delimiters (`boolean`, default: `true`).
-By default, they are aligned:
-
-```markdown
-| Alpha | B     |
-| ----- | ----- |
-| C     | Delta |
-```
-
-Pass `false` to make them staggered:
-
-```markdown
-| Alpha | B |
-| - | - |
-| C | Delta |
+|Alpha|B    |
+|-----|-----|
+|C    |Delta|
 ```
 
 ###### `options.stringLength`
@@ -248,7 +248,7 @@ Yields:
 | 👩‍❤️‍👩 | Delta |
 ```
 
-With [`string-width`][string-width]:
+With [`string-width`][github-string-width]:
 
 ```js
 import stringWidth from 'string-width'
@@ -290,55 +290,55 @@ This package is safe.
 ## Inspiration
 
 The original idea and basic implementation was inspired by James Halliday’s
-[`text-table`][text-table] library.
+[`text-table`][github-text-table] library.
 
 ## Contribute
 
 Yes please!
-See [How to Contribute to Open Source][contribute].
+See [How to Contribute to Open Source][opensource-guide-contribute].
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][file-license] © [Titus Wormer][wooorm]
 
 <!-- Definitions -->
 
-[author]: https://wooorm.com
+[badge-build-image]: https://github.com/wooorm/markdown-table/workflows/main/badge.svg
 
-[build]: https://github.com/wooorm/markdown-table/actions
+[badge-build-url]: https://github.com/wooorm/markdown-table/actions
 
-[build-badge]: https://github.com/wooorm/markdown-table/workflows/main/badge.svg
+[badge-coverage-image]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
 
-[contribute]: https://opensource.guide/how-to-contribute/
+[badge-coverage-url]: https://codecov.io/github/wooorm/markdown-table
 
-[coverage]: https://codecov.io/github/wooorm/markdown-table
+[badge-downloads-image]: https://img.shields.io/npm/dm/markdown-table.svg
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
+[badge-downloads-url]: https://www.npmjs.com/package/markdown-table
 
-[downloads]: https://www.npmjs.com/package/markdown-table
+[badge-size-image]: https://img.shields.io/bundlejs/size/markdown-table
 
-[downloads-badge]: https://img.shields.io/npm/dm/markdown-table.svg
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+[badge-size-url]: https://bundlejs.com/?q=markdown-table
 
 [esmsh]: https://esm.sh
 
-[gfm]: https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
+[file-license]: license
 
-[license]: license
+[github-docs-gfm]: https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
 
-[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+[github-gist-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
+[github-mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
 
-[npm]: https://docs.npmjs.com/cli/install
+[github-mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
 
-[size]: https://bundlephobia.com/result?p=markdown-table
+[github-string-width]: https://github.com/sindresorhus/string-width
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/markdown-table.svg
+[github-text-table]: https://github.com/substack/text-table
 
-[string-width]: https://github.com/sindresorhus/string-width
+[npmjs-install]: https://docs.npmjs.com/cli/install
 
-[text-table]: https://github.com/substack/text-table
+[opensource-guide-contribute]: https://opensource.guide/how-to-contribute/
 
 [typescript]: https://www.typescriptlang.org
+
+[wooorm]: https://wooorm.com
