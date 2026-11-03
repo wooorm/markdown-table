@@ -303,42 +303,42 @@ See [How to Contribute to Open Source][contribute].
 
 <!-- Definitions -->
 
-[build-badge]: https://github.com/wooorm/markdown-table/workflows/main/badge.svg
+[author]: https://wooorm.com
 
 [build]: https://github.com/wooorm/markdown-table/actions
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
-
-[coverage]: https://codecov.io/github/wooorm/markdown-table
-
-[downloads-badge]: https://img.shields.io/npm/dm/markdown-table.svg
-
-[downloads]: https://www.npmjs.com/package/markdown-table
-
-[size-badge]: https://img.shields.io/bundlephobia/minzip/markdown-table.svg
-
-[size]: https://bundlephobia.com/result?p=markdown-table
-
-[npm]: https://docs.npmjs.com/cli/install
-
-[esmsh]: https://esm.sh
-
-[license]: license
-
-[author]: https://wooorm.com
-
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-
-[typescript]: https://www.typescriptlang.org
+[build-badge]: https://github.com/wooorm/markdown-table/workflows/main/badge.svg
 
 [contribute]: https://opensource.guide/how-to-contribute/
 
+[coverage]: https://codecov.io/github/wooorm/markdown-table
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/markdown-table.svg
+
+[downloads]: https://www.npmjs.com/package/markdown-table
+
+[downloads-badge]: https://img.shields.io/npm/dm/markdown-table.svg
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
 [gfm]: https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables
 
-[text-table]: https://github.com/substack/text-table
+[license]: license
 
-[string-width]: https://github.com/sindresorhus/string-width
+[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
 
 [mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
 
-[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+[npm]: https://docs.npmjs.com/cli/install
+
+[size]: https://bundlephobia.com/result?p=markdown-table
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/markdown-table.svg
+
+[string-width]: https://github.com/sindresorhus/string-width
+
+[text-table]: https://github.com/substack/text-table
+
+[typescript]: https://www.typescriptlang.org

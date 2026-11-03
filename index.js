@@ -146,6 +146,8 @@
  */
 
 /**
+ * Get the length of a cell.
+ *
  * @param {string} value
  *   Cell value.
  * @returns {number}
@@ -170,6 +172,7 @@ function defaultStringLength(value) {
 export function markdownTable(table, options) {
   const settings = options || {}
   // To do: next major: change to spread.
+  // eslint-disable-next-line unicorn/prefer-spread -- `align` can be a string.
   const align = (settings.align || []).concat()
   const stringLength = settings.stringLength || defaultStringLength
   /** @type {Array<number>} Character codes as symbols for alignment per column. */
@@ -306,11 +309,13 @@ export function markdownTable(table, options) {
         if (code === 114 /* `r` */) {
           before = ' '.repeat(size)
         } else if (code === 99 /* `c` */) {
+          const half = size / 2
+
           if (size % 2) {
-            before = ' '.repeat(size / 2 + 0.5)
-            after = ' '.repeat(size / 2 - 0.5)
+            before = ' '.repeat(half + 0.5)
+            after = ' '.repeat(half - 0.5)
           } else {
-            before = ' '.repeat(size / 2)
+            before = ' '.repeat(half)
             after = before
           }
         } else {
@@ -365,6 +370,8 @@ export function markdownTable(table, options) {
 }
 
 /**
+ * Serialize a cell value.
+ *
  * @param {string | null | undefined} [value]
  *   Value to serialize.
  * @returns {string}
@@ -375,6 +382,8 @@ function serialize(value) {
 }
 
 /**
+ * Get the alignment character code from a value.
+ *
  * @param {string | null | undefined} value
  *   Value.
  * @returns {number}
