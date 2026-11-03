@@ -52,6 +52,28 @@
  *   | ----- | -----
  *   | C     | Delta
  *   ```
+ * @property {boolean | null | undefined} [fillRows=true]
+ *   Whether to fill rows with empty cells up to the most cells in a row
+ *   (default: `true`).
+ *
+ *   When `true`, all rows have as many cells as the longest row:
+ *
+ *   ```markdown
+ *   | Alpha | B    |   |
+ *   | ----- | ---- | - |
+ *   | C     |      |   |
+ *   | D     | Echo | F |
+ *   ```
+ *
+ *   When `false`, rows keep their cells,
+ *   and the delimiter row has as many cells as the header row:
+ *
+ *   ```markdown
+ *   | Alpha | B    |
+ *   | ----- | ---- |
+ *   | C     |
+ *   | D     | Echo | F |
+ *   ```
  * @property {boolean | null | undefined} [delimiterStart=true]
  *   Whether to begin each row with the delimiter (default: `true`).
  *
@@ -292,11 +314,15 @@ export function markdownTable(table, options) {
   while (++rowIndex < cellMatrix.length) {
     const row = cellMatrix[rowIndex]
     const sizes = sizeMatrix[rowIndex]
+    const cellsInRow =
+      settings.fillRows === false
+        ? Math.max(1, cellMatrix[rowIndex === 1 ? 0 : rowIndex].length)
+        : mostCellsPerRow
     columnIndex = -1
     /** @type {Array<string>} */
     const line = []
 
-    while (++columnIndex < mostCellsPerRow) {
+    while (++columnIndex < cellsInRow) {
       const cell = row[columnIndex] || ''
       let before = ''
       let after = ''
@@ -351,10 +377,7 @@ export function markdownTable(table, options) {
         line.push(' ')
       }
 
-      if (
-        settings.delimiterEnd !== false ||
-        columnIndex !== mostCellsPerRow - 1
-      ) {
+      if (settings.delimiterEnd !== false || columnIndex !== cellsInRow - 1) {
         line.push('|')
       }
     }

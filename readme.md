@@ -197,6 +197,30 @@ Alpha | B     |
 C     | Delta |
 ```
 
+###### `options.fillRows`
+
+Whether to fill rows with empty cells up to the most cells in a row (`boolean`,
+default: `true`).
+
+When `true`, all rows have as many cells as the longest row:
+
+```markdown
+| Alpha | B    |   |
+| ----- | ---- | - |
+| C     |      |   |
+| D     | Echo | F |
+```
+
+When `false`, rows keep their cells,
+and the delimiter row has as many cells as the header row:
+
+```markdown
+| Alpha | B    |
+| ----- | ---- |
+| C     |
+| D     | Echo | F |
+```
+
 ###### `options.padding`
 
 Whether to add a space of padding between delimiters and cells (`boolean`,

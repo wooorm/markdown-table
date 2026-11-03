@@ -267,6 +267,38 @@ test('markdownTable()', async function (t) {
     }
   )
 
+  await t.test('should not fill rows w/ `fillRows: false`', async function () {
+    assert.equal(
+      markdownTable([['A', 'B'], ['C'], ['D', 'E', 'F']], {
+        fillRows: false
+      }),
+      ['| A | B |', '| - | - |', '| C |', '| D | E | F |'].join('\n')
+    )
+  })
+
+  await t.test(
+    'should add one cell to rows without cells w/ `fillRows: false`',
+    async function () {
+      assert.equal(
+        markdownTable([['A'], [], ['B']], {fillRows: false}),
+        ['| A |', '| - |', '|   |', '| B |'].join('\n')
+      )
+    }
+  )
+
+  await t.test(
+    'should not fill rows w/ `fillRows: false`, `delimiterEnd: false`',
+    async function () {
+      assert.equal(
+        markdownTable([['A', 'B'], ['C'], ['D', 'E', 'F']], {
+          delimiterEnd: false,
+          fillRows: false
+        }),
+        ['| A | B', '| - | -', '| C', '| D | E | F'].join('\n')
+      )
+    }
+  )
+
   await t.test(
     'should create rows without ending delimiter',
     async function () {
